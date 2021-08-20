@@ -56,8 +56,6 @@ Learn more about napari at [napari.org](https://napari.org/), including our [tut
 Let's start by importing napari and creating an empty [napari viewer](https://napari.org/tutorials/fundamentals/viewer.html)
 
 ```{code-cell} ipython3
-:tags: ["remove-output"]
-
 import napari
 viewer = napari.Viewer()
 ```
@@ -104,8 +102,6 @@ print(nuclei.shape)
 Now that we have the data array loaded, we can directly add it to the viewer.
 
 ```{code-cell} ipython3
-:tags: ["remove-output"]
-
 ## directly adding image data to the napari viewer
 viewer.add_image(nuclei)
 ```
@@ -176,8 +172,6 @@ nbscreenshot(viewer)
 We could have actually passed these parameters as key-word arguments to during the first `add_image` call. For example we can add another copy of the data as follows:
 
 ```{code-cell} ipython3
-:tags: [remove-output]
-
 viewer.add_image(nuclei, contrast_limits=[0.07, 0.35], colormap='blue', blending='additive')
 ```
 
@@ -245,7 +239,6 @@ nbscreenshot(viewer)
 ```
 
 ```{code-cell} ipython3
-:tags: [remove-cell]
 
 # sleep to allow screenshot to finish before notebook closes
 from time import sleep
