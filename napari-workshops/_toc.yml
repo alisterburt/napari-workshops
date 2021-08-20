@@ -4,5 +4,7 @@
 format: jb-book
 root: intro
 chapters:
-- file: markdown
-- file: notebooks
+- file: spot-detection/intro
+  sections:
+  - file: spot-detection/installation
+
