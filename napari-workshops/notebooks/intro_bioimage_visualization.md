@@ -56,6 +56,8 @@ Learn more about napari at [napari.org](https://napari.org/), including our [tut
 Let's start by importing napari and creating an empty [napari viewer](https://napari.org/tutorials/fundamentals/viewer.html)
 
 ```{code-cell} ipython3
+:tags: ["remove-output"]
+
 import napari
 viewer = napari.Viewer()
 ```
@@ -109,6 +111,8 @@ viewer.add_image(nuclei)
 Don't forget to change windows so you can now see the viewer. By default you'll just be looking at the 1st plane of the 3D data, which is the 0th slice of 60. You should see a single slider at the buttom of the viewer that will allow you to scroll through the rest of the z-stack. If you find the 30th slice then you should see the same as in the screenshot below.
 
 ```{code-cell} ipython3
+:tags: ["remove-cell"]
+
 viewer.dims.current_step = (30, 0, 0)
 ```
 
@@ -122,6 +126,8 @@ In the top left hand corner of the viewer we now have a control panel with contr
 Right clicking on the **contrast limits** slider pulls up an elongated version of the slider which you can type specific numbers into. Let's give that a try to adjust the contrast limits to `[0.07, 0.35]`, and let's change the colormap to `blue` using the drop down menu.
 
 ```{code-cell} ipython3
+:tags: ["remove-cell"]
+
 layer = viewer.layers[0]
 layer.contrast_limits = [0.07, 0.35]
 layer.colormap = 'blue'
@@ -143,7 +149,7 @@ print(viewer.layers)
 ```{code-cell} ipython3
 nuclei_layer = viewer.layers['nuclei']
 first_layer = viewer.layers[0]
-print(nuclei_layer, first_layer)
+nuclei_layer, first_layer
 ```
 
 If we go in and get the `nuclei` layer from our layer list we can now see and edit the values of some of the properties that we can control in the GUI.
@@ -203,6 +209,8 @@ nbscreenshot(viewer)
 So far we've only looked at one slice. Use the slider at the bottom of the viewer to scroll through to another slice and see what the image looks like. For example the 45th slice looks like:
 
 ```{code-cell} ipython3
+:tags: ["remove-cell"]
+
 viewer.dims.current_step = (45, 0, 0)
 ```
 
@@ -213,6 +221,8 @@ nbscreenshot(viewer)
 As this is a 3D volume, we can also use napari to look at 2D slices along other axes. If we click the `roll dimensions` button in the bottom left hand corner of the viewer (which looks like a 3D cube with an arrow, 3rd from the left), and then scrolling through to the 60th slice gives the following:
 
 ```{code-cell} ipython3
+:tags: ["remove-cell"]
+
 viewer.layers['membranes'].contrast_limits = (0, 0.75)
 viewer.layers['nuclei'].contrast_limits = (0, 0.35)
 viewer.layers['division'].contrast_limits = (0, 1)
@@ -229,6 +239,8 @@ In addition to doing 2D rendering, napari can also do full 3D rendering. To enab
 Try playing around with some of the 3D rendering modes and parameters in the gui to get a nice 3D visualization.
 
 ```{code-cell} ipython3
+:tags: ["remove-cell"]
+
 viewer.dims.ndisplay = 3
 viewer.camera.angles = (-10, 10, 150)
 viewer.camera.zoom = 1.75
@@ -239,6 +251,7 @@ nbscreenshot(viewer)
 ```
 
 ```{code-cell} ipython3
+:tags: ["remove-cell"]
 
 # sleep to allow screenshot to finish before notebook closes
 from time import sleep
