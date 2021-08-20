@@ -25,7 +25,7 @@ This notebook will introduce `napari` a fast, interactive, multi-dimensional ima
 
 ## Introducing napari 
 
-```{image} ./resources/napari-logo.png
+```{image} resources/napari-logo.png
 :alt: napari layer types
 :width: 20%
 :align: center
@@ -35,7 +35,7 @@ This notebook will introduce `napari` a fast, interactive, multi-dimensional ima
 
 `napari` includes critical viewer features out-of-the-box, such as support for large multi-dimensional data, layering, and annotation. By integrating closely with the scientific Python ecosystem, napari can be easily coupled to leading machine learning and image analysis tools (e.g. scikit-image, scikit-learn, PyTorch), enabling more user-friendly automated analysis.
 
-```{image} ./resources/napari-layer-types.png
+```{image} resources/napari-layer-types.png
 :alt: napari layer types
 :width: 20%
 :align: center
