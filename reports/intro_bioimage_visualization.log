@@ -32,6 +32,8 @@ nbclient.exceptions.CellTimeoutError: A cell timed out while it was being execut
 The message was: Cell execution timed out.
 Here is a preview of the cell contents:
 -------------------
-viewer.dims.current_step = (30, 0, 0)
+layer = viewer.layers[0]
+layer.contrast_limits = [0.07, 0.35]
+layer.colormap = 'blue'
 -------------------
 
