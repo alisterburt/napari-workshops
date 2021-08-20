@@ -1,4 +1,4 @@
-# napari workshop materials
+# Home
 
 This site contains materials for `napari` workshops. For more information about the project, head over to [napari.org](https://napari.org). To explore our plugin ecosystem, be sure to check out the [napari hub](https://www.napari-hub.org/).
 
