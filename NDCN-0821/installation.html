@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Installation instructions &#8212; napari workshops</title>
+    <title>Setting up your napari environment &#8212; napari workshops</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
   <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -101,7 +101,7 @@
   <ul class="current">
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     Installation instructions
+     Setting up your napari environment
     </a>
    </li>
   </ul>
@@ -188,6 +188,24 @@
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#installing-python-via-anaconda">
+   Installing python via anaconda
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#setting-up-your-environment">
+   Setting up your environment
+  </a>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -196,8 +214,120 @@
         
               <div>
                 
-  <div class="section" id="installation-instructions">
-<h1>Installation instructions<a class="headerlink" href="#installation-instructions" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="setting-up-your-napari-environment">
+<h1>Setting up your napari environment<a class="headerlink" href="#setting-up-your-napari-environment" title="Permalink to this headline">¶</a></h1>
+<p><strong>Note:</strong> If you have any issues with installation, please feel free to write us a message on the <a class="reference external" href="https://napari.zulipchat.com/#narrow/stream/212875-general">napari zulip</a> and we will try to help you get unstuck.</p>
+<div class="section" id="installing-python-via-anaconda">
+<h2>Installing python via anaconda<a class="headerlink" href="#installing-python-via-anaconda" title="Permalink to this headline">¶</a></h2>
+<p>In this tutorial, we will install python via miniforge, a distribution of anaconda python. However, if you already have anaconda, miniconda, or miniforge installed, those will work as well and you can skip to the next section.</p>
+<ol>
+<li><p>In your web browser, navigate to the <a class="reference external" href="https://github.com/conda-forge/miniforge">miniforge page</a>.</p></li>
+<li><p>Scroll down to the “Miniforge3” header of the “Downloads” section. Click the link to download the appropriate version for your operating system. Note that even if you have a new Apple computer with an M1 propcessor, you should download the OS X x86_64 version.</p>
+<ul class="simple">
+<li><p>Windows: <code class="docutils literal notranslate"><span class="pre">Miniforge3-Windows-x86_64</span></code></p></li>
+<li><p>Mac with Intel processor: <code class="docutils literal notranslate"><span class="pre">Miniforge3-MacOSX-x86_64</span></code></p></li>
+<li><p>Mac with M1 (“Apple silicon”): <code class="docutils literal notranslate"><span class="pre">Miniforge3-MacOSX-x86_64</span></code></p></li>
+<li><p>Linux with an Intel processor: <code class="docutils literal notranslate"><span class="pre">Miniforge3-Linux-x86_64</span></code></p></li>
+</ul>
+</li>
+<li><p>Once you have downloaded miniforge installer, run it to install python.</p>
+<ul>
+<li><p><strong>Windows</strong></p>
+<ol class="simple">
+<li><p>Find the file you downloaded (Miniforge3-Windows-x86_64.exe) and double click to execute it. Follow the instructions to complete the installation.</p></li>
+<li><p>Once the installation has completed, you can verify it was correctly installed by searching for the “miniforge prompt” in your Start menu.</p></li>
+</ol>
+</li>
+<li><p><strong>Mac OS</strong></p>
+<ol>
+<li><p>Open your Terminal (you can search for it in spotlight - <code class="docutils literal notranslate"><span class="pre">cmd</span></code> + <code class="docutils literal notranslate"><span class="pre">space</span></code>)</p></li>
+<li><p>Navigate to the folder you downloaded the installer to (usually this is in your Downloads folder). If the file was downloaded to your Downloads folder, you would enter:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~/Downloads
+</pre></div>
+</div>
+</li>
+<li><p>Execute the installer with the command below. You can use your arrow keys to scroll up and down to read it/agree to it.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bash Miniforge3-MacOSX-x86_64.sh -b
+</pre></div>
+</div>
+</li>
+<li><p>To verify your installation worked, close your Terminal window and open a new one. You should see <code class="docutils literal notranslate"><span class="pre">(base)</span></code> to the left of your prompt.</p></li>
+<li><p>Finally, initialize miniforge with the command below. This makes sure that your terminal is set up correctly for your python installation.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda init
+</pre></div>
+</div>
+</li>
+</ol>
+</li>
+<li><p><strong>Linux</strong></p>
+<ol>
+<li><p>Open your terminal application</p></li>
+<li><p>Navigate to the folder you downloaded the installer to (usually this is in your Downloads folder). If the file was downloaded to your Downloads folder, you would enter:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~/Downloads
+</pre></div>
+</div>
+</li>
+<li><p>Execute the installer with the command below. You can use your arrow keys to scroll up and down to read it/agree to it.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bash Miniforge3-Linux-x86_64.sh -b
+</pre></div>
+</div>
+</li>
+<li><p>To verify your installation worked, close your Terminal window and open a new one. You should see <code class="docutils literal notranslate"><span class="pre">(base)</span></code> to the left of your prompt.</p></li>
+<li><p>Finally, initialize miniforge with the command below. This makes sure that your terminal is set up correctly for your python installation.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda init
+</pre></div>
+</div>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+</div>
+<div class="section" id="setting-up-your-environment">
+<h2>Setting up your environment<a class="headerlink" href="#setting-up-your-environment" title="Permalink to this headline">¶</a></h2>
+<ol>
+<li><p>Open your terminal.</p>
+<ul class="simple">
+<li><p><strong>Windows</strong>: Open the “miniforge prompt” from your start menu</p></li>
+<li><p><strong>Mac OS</strong>: Open Terminal (you can search for it in spotlight - cmd + space)</p></li>
+<li><p><strong>Linux</strong>: Open your terminal application</p></li>
+</ul>
+</li>
+<li><p>We use an environment to encapsulate the python tools used for this workshop. This ensures that the requirements for this workshop do not interfere with your other python projects. To create the environment (named <code class="docutils literal notranslate"><span class="pre">napari-tutorial</span></code>), enter the following command.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda create -n napari-tutorial <span class="nv">python</span><span class="o">=</span><span class="m">3</span>.9
+</pre></div>
+</div>
+</li>
+<li><p>Once the environment setup has finished, activate the environment. If you successfully activated the environment, you should now see <code class="docutils literal notranslate"><span class="pre">(napari-tutorial)</span></code> to the left of your command prompt.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda activate napari-tutorial
+</pre></div>
+</div>
+</li>
+<li><p>Install the dependencies with the commands below</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda install -c conda-forge notebook
+pip install magicgui <span class="s1">&#39;napari[all]&#39;</span>
+pip install cellpose-napari
+</pre></div>
+</div>
+</li>
+<li><p>If you are on a Mac, please install this one additional dependency.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">python</span><span class="o">.</span><span class="n">app</span>
+</pre></div>
+</div>
+</li>
+<li><p>Test that your notebook installation is working. We will be using notebook for interactive analysis. Enter the command below and it should launch jupyter notebook book in a web browser. Once you’ve confirmed it launches, close the web browser and press ctrl+c in the terminal window to stop the notebook server.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>jupyter notebook
+</pre></div>
+</div>
+</li>
+<li><p>Test your napari installation. Enter the command below and an empty napari viewer should open. You can close the window after it opens. Please note that it takes a bit of extra time to launch napari the first time.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>napari
+</pre></div>
+</div>
+</li>
+</ol>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
