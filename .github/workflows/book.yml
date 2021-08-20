@@ -25,7 +25,8 @@ jobs:
     - name: Install dependencies
       run: |
         pip install -r napari-workshops/requirements.txt
-        sudo apt install libxkbcommon-x11-0 /sbin/start-stop-daemon \
+        sudo apt install libxkbcommon-x11-0
+        /sbin/start-stop-daemon \
         --start \
         --quiet \
         --pidfile /tmp/custom_xvfb_99.pid --make-pidfile \
