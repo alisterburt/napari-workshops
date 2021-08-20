@@ -26,7 +26,7 @@ print(nuclei.shape)
 
 [0;31m---------------------------------------------------------------------------[0m
 [0;31mFileNotFoundError[0m                         Traceback (most recent call last)
-[0;32m/tmp/ipykernel_1865/3020373459.py[0m in [0;36m<module>[0;34m[0m
+[0;32m/tmp/ipykernel_1905/3020373459.py[0m in [0;36m<module>[0;34m[0m
 [1;32m      2[0m [0;34m[0m[0m
 [1;32m      3[0m [0;31m# load the image data and inspect its shape[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
 [0;32m----> 4[0;31m [0mnuclei[0m [0;34m=[0m [0mimread[0m[0;34m([0m[0;34m'data/nuclei.tif'[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
