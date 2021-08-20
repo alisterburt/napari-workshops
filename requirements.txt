@@ -1,2 +1,4 @@
-jupyter-book
-ghp import
+# Requirements for running the notebooks
+napari[all]
+cellpose-napari
+notebook

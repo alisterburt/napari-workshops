@@ -7,4 +7,5 @@ chapters:
 - file: NDCN-0821/intro
   sections:
   - file: NDCN-0821/installation
+  - file: notebooks/intro_bioimage_visualization
 
