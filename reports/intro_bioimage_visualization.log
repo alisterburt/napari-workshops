@@ -32,7 +32,8 @@ nbclient.exceptions.CellTimeoutError: A cell timed out while it was being execut
 The message was: Cell execution timed out.
 Here is a preview of the cell contents:
 -------------------
-## directly adding image data to the napari viewer
-viewer.add_image(nuclei)
+nuclei_layer = viewer.layers['nuclei']
+first_layer = viewer.layers[0]
+print(nuclei_layer, first_layer)
 -------------------
 
