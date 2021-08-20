@@ -153,7 +153,7 @@ print(viewer.layers)
 
 nuclei_layer = viewer.layers['nuclei']
 first_layer = viewer.layers[0]
-print(nuclei_layer, first_layer)
+nuclei_layer, first_layer
 
 
 # If we go in and get the `nuclei` layer from our layer list we can now see and edit the values of some of the properties that we can control in the GUI.
