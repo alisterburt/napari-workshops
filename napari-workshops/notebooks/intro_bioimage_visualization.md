@@ -104,7 +104,7 @@ print(nuclei.shape)
 Now that we have the data array loaded, we can directly add it to the viewer.
 
 ```{code-cell} ipython3
-:tags: [remove-output]
+:tags: ["remove-output"]
 
 ## directly adding image data to the napari viewer
 viewer.add_image(nuclei)
@@ -113,7 +113,7 @@ viewer.add_image(nuclei)
 Don't forget to change windows so you can now see the viewer. By default you'll just be looking at the 1st plane of the 3D data, which is the 0th slice of 60. You should see a single slider at the buttom of the viewer that will allow you to scroll through the rest of the z-stack. If you find the 30th slice then you should see the same as in the screenshot below.
 
 ```{code-cell} ipython3
-:tags: ["remove-cell"]
+:tags: ["remove-input", "remove-output"]
 
 viewer.dims.current_step = (30, 0, 0)
 ```
@@ -128,8 +128,6 @@ In the top left hand corner of the viewer we now have a control panel with contr
 Right clicking on the **contrast limits** slider pulls up an elongated version of the slider which you can type specific numbers into. Let's give that a try to adjust the contrast limits to `[0.07, 0.35]`, and let's change the colormap to `blue` using the drop down menu.
 
 ```{code-cell} ipython3
-:tags: ["remove-cell"]
-
 layer = viewer.layers[0]
 layer.contrast_limits = [0.07, 0.35]
 layer.colormap = 'blue'
