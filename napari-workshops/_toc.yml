@@ -4,7 +4,7 @@
 format: jb-book
 root: home
 chapters:
-- file: spot-detection/intro
+- file: NDCN-0821/intro
   sections:
-  - file: spot-detection/installation
+  - file: NDCN-0821/installation
 
