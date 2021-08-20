@@ -56,7 +56,7 @@ Learn more about napari at [napari.org](https://napari.org/), including our [tut
 Let's start by importing napari and creating an empty [napari viewer](https://napari.org/tutorials/fundamentals/viewer.html)
 
 ```{code-cell} ipython3
-:tags: [hide-output]
+:tags: ["remove-output"]
 
 import napari
 viewer = napari.Viewer()
