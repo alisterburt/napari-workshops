@@ -18,7 +18,7 @@ In this tutorial, we will install python via miniforge, a distribution of anacon
 		1. Find the file you downloaded (Miniforge3-Windows-x86_64.exe) and double click to execute it. Follow the instructions to complete the installation.
 		2. Once the installation has completed, you can verify it was correctly installed by searching for the "miniforge prompt" in your Start menu.
 	- **Mac OS**
-		1. Open your Terminal (you can search for it in spotlight - cmd + space)
+		1. Open your Terminal (you can search for it in spotlight - `cmd` + `space`)
 		2. Navigate to the folder you downloaded the installer to (usually this is in your Downloads folder). If the file was downloaded to your Downloads folder, you would enter:
 		
 			```bash
