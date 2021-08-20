@@ -1,4 +1,4 @@
-# Setting up your napari environment
+# python setup & napari installation
 
 **Note:** If you have any issues with installation, please feel free to write us a message on the [napari zulip](https://napari.zulipchat.com/#narrow/stream/212875-general) and we will try to help you get unstuck.
 
