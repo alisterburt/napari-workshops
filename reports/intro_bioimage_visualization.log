@@ -17,16 +17,49 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-import napari
-viewer = napari.Viewer()
+from tifffile import imread
+
+# load the image data and inspect its shape
+nuclei = imread('data/nuclei.tif')
+print(nuclei.shape)
 ------------------
 
 [0;31m---------------------------------------------------------------------------[0m
-[0;31mModuleNotFoundError[0m                       Traceback (most recent call last)
-[0;32m/tmp/ipykernel_1913/911341563.py[0m in [0;36m<module>[0;34m[0m
-[0;32m----> 1[0;31m [0;32mimport[0m [0mnapari[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m      2[0m [0mviewer[0m [0;34m=[0m [0mnapari[0m[0;34m.[0m[0mViewer[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;31mFileNotFoundError[0m                         Traceback (most recent call last)
+[0;32m/tmp/ipykernel_1891/3020373459.py[0m in [0;36m<module>[0;34m[0m
+[1;32m      2[0m [0;34m[0m[0m
+[1;32m      3[0m [0;31m# load the image data and inspect its shape[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+[0;32m----> 4[0;31m [0mnuclei[0m [0;34m=[0m [0mimread[0m[0;34m([0m[0;34m'data/nuclei.tif'[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m      5[0m [0mprint[0m[0;34m([0m[0mnuclei[0m[0;34m.[0m[0mshape[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
 
-[0;31mModuleNotFoundError[0m: No module named 'napari'
-ModuleNotFoundError: No module named 'napari'
+[0;32m/opt/hostedtoolcache/Python/3.9.6/x64/lib/python3.9/site-packages/tifffile/tifffile.py[0m in [0;36mimread[0;34m(files, aszarr, **kwargs)[0m
+[1;32m    830[0m [0;34m[0m[0m
+[1;32m    831[0m         [0;32mif[0m [0misinstance[0m[0;34m([0m[0mfiles[0m[0;34m,[0m [0;34m([0m[0mstr[0m[0;34m,[0m [0mos[0m[0;34m.[0m[0mPathLike[0m[0;34m)[0m[0;34m)[0m [0;32mor[0m [0mhasattr[0m[0;34m([0m[0mfiles[0m[0;34m,[0m [0;34m'seek'[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 832[0;31m             [0;32mwith[0m [0mTiffFile[0m[0;34m([0m[0mfiles[0m[0;34m,[0m [0;34m**[0m[0mkwargs_file[0m[0;34m)[0m [0;32mas[0m [0mtif[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    833[0m                 [0;32mif[0m [0maszarr[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    834[0m                     [0;32mreturn[0m [0mtif[0m[0;34m.[0m[0maszarr[0m[0;34m([0m[0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/opt/hostedtoolcache/Python/3.9.6/x64/lib/python3.9/site-packages/tifffile/tifffile.py[0m in [0;36m__init__[0;34m(self, arg, mode, name, offset, size, _multifile, _useframes, _parent, **kwargs)[0m
+[1;32m   3026[0m             [0;32mraise[0m [0mValueError[0m[0;34m([0m[0;34mf'invalid mode {mode!r}'[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   3027[0m [0;34m[0m[0m
+[0;32m-> 3028[0;31m         [0mfh[0m [0;34m=[0m [0mFileHandle[0m[0;34m([0m[0marg[0m[0;34m,[0m [0mmode[0m[0;34m=[0m[0mmode[0m[0;34m,[0m [0mname[0m[0;34m=[0m[0mname[0m[0;34m,[0m [0moffset[0m[0;34m=[0m[0moffset[0m[0;34m,[0m [0msize[0m[0;34m=[0m[0msize[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m   3029[0m         [0mself[0m[0;34m.[0m[0m_fh[0m [0;34m=[0m [0mfh[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   3030[0m         [0mself[0m[0;34m.[0m[0m_multifile[0m [0;34m=[0m [0mbool[0m[0;34m([0m[0m_multifile[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/opt/hostedtoolcache/Python/3.9.6/x64/lib/python3.9/site-packages/tifffile/tifffile.py[0m in [0;36m__init__[0;34m(self, file, mode, name, offset, size)[0m
+[1;32m   9723[0m         [0mself[0m[0;34m.[0m[0mis_file[0m [0;34m=[0m [0;32mNone[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   9724[0m         [0mself[0m[0;34m.[0m[0m_lock[0m [0;34m=[0m [0mNullContext[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 9725[0;31m         [0mself[0m[0;34m.[0m[0mopen[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m   9726[0m [0;34m[0m[0m
+[1;32m   9727[0m     [0;32mdef[0m [0mopen[0m[0;34m([0m[0mself[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/opt/hostedtoolcache/Python/3.9.6/x64/lib/python3.9/site-packages/tifffile/tifffile.py[0m in [0;36mopen[0;34m(self)[0m
+[1;32m   9736[0m             [0mself[0m[0;34m.[0m[0m_file[0m [0;34m=[0m [0mos[0m[0;34m.[0m[0mpath[0m[0;34m.[0m[0mrealpath[0m[0;34m([0m[0mself[0m[0;34m.[0m[0m_file[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   9737[0m             [0mself[0m[0;34m.[0m[0m_dir[0m[0;34m,[0m [0mself[0m[0;34m.[0m[0m_name[0m [0;34m=[0m [0mos[0m[0;34m.[0m[0mpath[0m[0;34m.[0m[0msplit[0m[0;34m([0m[0mself[0m[0;34m.[0m[0m_file[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 9738[0;31m             [0mself[0m[0;34m.[0m[0m_fh[0m [0;34m=[0m [0mopen[0m[0;34m([0m[0mself[0m[0;34m.[0m[0m_file[0m[0;34m,[0m [0mself[0m[0;34m.[0m[0m_mode[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m   9739[0m             [0mself[0m[0;34m.[0m[0m_close[0m [0;34m=[0m [0;32mTrue[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   9740[0m             [0;32mif[0m [0mself[0m[0;34m.[0m[0m_offset[0m [0;32mis[0m [0;32mNone[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;31mFileNotFoundError[0m: [Errno 2] No such file or directory: '/home/runner/work/napari-workshops/napari-workshops/napari-workshops/notebooks/data/nuclei.tif'
+FileNotFoundError: [Errno 2] No such file or directory: '/home/runner/work/napari-workshops/napari-workshops/napari-workshops/notebooks/data/nuclei.tif'
 
