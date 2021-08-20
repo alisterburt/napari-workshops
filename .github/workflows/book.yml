@@ -10,18 +10,27 @@ on:
 jobs:
   deploy-book:
     runs-on: ubuntu-latest
+    env:
+      DISPLAY: ':99.0'
+      NAPARI_APPLICATION_IPY_INTERACTIVE: 0
     steps:
     - uses: actions/checkout@v2
 
     # Install dependencies
-    - name: Set up Python 3.7
+    - name: Set up Python 3.9
       uses: actions/setup-python@v1
       with:
-        python-version: 3.7
+        python-version: 3.9
 
     - name: Install dependencies
       run: |
         pip install -r napari-workshops/requirements.txt
+        sudo apt install libxkbcommon-x11-0 /sbin/start-stop-daemon \
+        --start \
+        --quiet \
+        --pidfile /tmp/custom_xvfb_99.pid --make-pidfile \
+        --background --exec /usr/bin/Xvfb \
+        -- :99 -screen 0 1920x1200x24 -ac +extension GLX
     # Build the book
     - name: Build the book
       run: |
