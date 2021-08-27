@@ -46,7 +46,7 @@ import napari
 viewer = napari.view_image(nuclei, colormap='magma')
 ```
 
-```{code-cell} ipython3
+```{code-cell} python
 from napari.utils import nbscreenshot
 
 nbscreenshot(viewer)
