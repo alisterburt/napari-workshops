@@ -25,7 +25,7 @@ The data were downloaded from the [OpticalPooledScreens github repository](https
 
 We will start by loading an image of DAPI stained nuclei. We can use `scikit-image`'s `imread()` function to download the data from the link below and load it into a numpy array called `nuclei`.
 
-```{code-cell} ipython3
+```{code-cell} python
 :tags: ["remove-output"]
 
 from skimage import io
