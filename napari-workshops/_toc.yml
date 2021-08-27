@@ -9,4 +9,5 @@ chapters:
   - file: NDCN-0821/installation
   - file: notebooks/intro_bioimage_visualization
   - file: notebooks/manual_annotation
+  - file: notebooks/interactive_analysis
 
