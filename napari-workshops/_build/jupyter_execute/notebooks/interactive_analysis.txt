@@ -1,0 +1,157 @@
+import napari
+from napari.utils import nbscreenshot
+
+# Create an empty viewer
+viewer = napari.Viewer()
+
+from tifffile import imread
+
+# load the image data and inspect its shape
+nuclei_mip = imread('data/nuclei.tif').max(axis=0)
+print(nuclei_mip.shape)
+
+viewer.add_image(nuclei_mip)
+
+nbscreenshot(viewer)
+
+# Import scikit-image's filtering module
+from skimage import filters
+
+viewer.add_image(filters.sobel_h(nuclei_mip), name='Horizontal Sobel')
+viewer.add_image(filters.sobel_v(nuclei_mip), name='Vertical Sobel')
+viewer.add_image(filters.roberts(nuclei_mip), name='Roberts')
+viewer.add_image(filters.prewitt(nuclei_mip), name='Prewitt')
+viewer.add_image(filters.scharr(nuclei_mip), name='Scharr')
+
+nbscreenshot(viewer)
+
+# Remove all filter layers
+for l in viewer.layers[1:]:
+    viewer.layers.remove(l)
+
+from skimage import morphology
+from skimage import feature
+from skimage import measure
+from skimage import segmentation
+from scipy import ndimage
+import numpy as np
+
+foreground = nuclei_mip >= filters.threshold_li(nuclei_mip)
+viewer.add_labels(foreground, name='foreground')
+
+nbscreenshot(viewer)
+
+foreground_processed = morphology.remove_small_holes(foreground, 60)
+foreground_processed = morphology.remove_small_objects(foreground_processed, min_size=50)
+
+viewer.layers['foreground'].data = foreground_processed
+
+nbscreenshot(viewer)
+
+distance = ndimage.distance_transform_edt(foreground_processed)
+viewer.add_image(distance)
+
+nbscreenshot(viewer)
+
+smoothed_distance = filters.gaussian(distance, 10)
+viewer.layers['distance'].data = smoothed_distance
+
+nbscreenshot(viewer)
+
+peak_local_max = feature.peak_local_max(
+    smoothed_distance,
+    footprint=np.ones((7, 7), dtype=bool),
+    indices=False,
+    labels=measure.label(foreground_processed)
+)
+peaks = np.nonzero(peak_local_max)
+
+viewer.add_points(np.array(peaks).T, name='peaks', size=5, face_color='red');
+
+nbscreenshot(viewer)
+
+viewer.layers['peaks'].selected_data = {11}
+viewer.layers['peaks'].remove_selected()
+
+new_peaks = np.round(viewer.layers['peaks'].data).astype(int).T
+seeds = np.zeros(nuclei_mip.shape, dtype=bool)
+seeds[(new_peaks[0], new_peaks[1])] = 1
+
+markers = measure.label(seeds)
+nuclei_segmentation = segmentation.watershed(
+    -smoothed_distance, 
+    markers, 
+    mask=foreground_processed
+)
+
+viewer.add_labels(nuclei_segmentation)
+
+nbscreenshot(viewer)
+
+viewer.layers['nuclei_segmentation'].save('nuclei-automated-segmentation.tif', plugin='builtins')
+
+# Remove all processed layers
+for l in viewer.layers[1:]:
+    viewer.layers.remove(l)
+
+# Import magicgui and qt functionality
+from qtpy.QtWidgets import QSlider
+from qtpy.QtCore import Qt
+from magicgui import magicgui
+
+from napari.types import ImageData, LabelsData
+
+@magicgui(auto_call=True,
+          percentile={"widget_type": "IntSlider", "min": 0, "max": 100})
+def threshold(image: ImageData, percentile: int = 50) -> LabelsData:
+    data_min = np.min(image)
+    data_max = np.max(image)
+    return image > data_min + percentile / 100 * (data_max - data_min)
+
+viewer.window.add_dock_widget(threshold, area="right")
+
+nbscreenshot(viewer)
+
+@viewer.bind_key('Shift-P')
+def process_foreground(viewer):
+    data = viewer.layers['threshold result'].data
+    data_processed = morphology.remove_small_holes(data, 60)
+    data_processed = morphology.remove_small_objects(data_processed, min_size=50)
+    viewer.layers['threshold result'].data = data_processed
+
+process_foreground(viewer)
+
+nbscreenshot(viewer)
+
+# Add an empty labels layer with the same shape as our maximum intensity projection
+viewer.add_labels(np.zeros(nuclei_mip.shape, dtype=int), name='nuclei segmentation')
+
+# Bind another keybinding to complete segmentation
+@viewer.bind_key('Shift-S')
+def complete_segmentation(viewer):
+    foreground = viewer.layers['threshold result'].data
+    distance = ndimage.distance_transform_edt(foreground)
+    smoothed_distance = filters.gaussian(distance, 10)
+    peak_local_max = feature.peak_local_max(
+        smoothed_distance,
+        footprint=np.ones((7, 7), dtype=bool),
+        indices=False,
+        labels=measure.label(foreground)
+    )
+    peaks = np.nonzero(peak_local_max)
+    seeds = np.zeros(smoothed_distance.shape, dtype=bool)
+    seeds[(peaks[0], peaks[1])] = 1
+
+    markers = measure.label(seeds)
+    nuclei_segmentation = segmentation.watershed(
+        -smoothed_distance, 
+        markers, 
+        mask=foreground
+    )
+    viewer.layers['nuclei segmentation'].data = nuclei_segmentation
+
+image_data = viewer.layers['nuclei_mip'].data
+viewer.layers['nuclei_mip'].data = threshold(image_data, 20)
+complete_segmentation(viewer)
+
+nbscreenshot(viewer)
