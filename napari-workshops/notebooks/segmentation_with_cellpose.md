@@ -38,7 +38,7 @@ nuclei = io.imread(url)
 
 As we did in the previous notebooks, we can view the image in napari using the `napari.view_image()` function. Here we set the colormap to `magma`.
 
-```{code-cell} ipython3
+```{code-cell} python
 :tags: ["remove-output"]
 
 import napari
