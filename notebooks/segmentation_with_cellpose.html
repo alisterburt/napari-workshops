@@ -1,0 +1,428 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>notebook: segmenting nuclei with the cellpose napari plugin &#8212; napari workshops</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet" />
+  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="notebook: interactive analysis" href="interactive_analysis.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      <img src="../_static/logo.ico" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">napari workshops</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../home.html">
+   Home
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../NDCN-0821/intro.html">
+   NDCN Workshop 08/21
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../NDCN-0821/installation.html">
+     python setup &amp; napari installation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="intro_bioimage_visualization.html">
+     notebook: bioimage visualization in python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="manual_annotation.html">
+     notebook: manual annotation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="interactive_analysis.html">
+     notebook: interactive analysis
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     notebook: segmenting nuclei with the cellpose napari plugin
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        <a class="dropdown-buttons"
+            href="../_sources/notebooks/segmentation_with_cellpose.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/notebooks/segmentation_with_cellpose.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/executablebooks/jupyter-book"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fnotebooks/segmentation_with_cellpose.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/notebooks/segmentation_with_cellpose.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#overview">
+   Overview
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#data-source">
+     Data source
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#loading-the-data">
+   Loading the data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#viewing-the-image">
+   Viewing the image
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#segment-nuclei">
+   Segment nuclei
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="notebook-segmenting-nuclei-with-the-cellpose-napari-plugin">
+<h1>notebook: segmenting nuclei with the cellpose napari plugin<a class="headerlink" href="#notebook-segmenting-nuclei-with-the-cellpose-napari-plugin" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>Plugins extend the functionality of napari and can be combined together to build workflows. Many plugins exist for common analysis tasks such as segmentation and filtering. In this activity, we will segment nuclei using the <a class="reference external" href="https://github.com/MouseLand/cellpose-napari">cellpose napari plugin</a>. Please visit the <a class="reference external" href="https://www.napari-hub.org/">napari hub</a> for a listing of the available plugins.</p>
+<div class="section" id="data-source">
+<h3>Data source<a class="headerlink" href="#data-source" title="Permalink to this headline">¶</a></h3>
+<p>The data were downloaded from the <a class="reference external" href="https://github.com/feldman4/OpticalPooledScreens">OpticalPooledScreens github repository</a>.</p>
+</div>
+</div>
+<div class="section" id="loading-the-data">
+<h2>Loading the data<a class="headerlink" href="#loading-the-data" title="Permalink to this headline">¶</a></h2>
+<p>We will start by loading an image of DAPI stained nuclei. We can use <code class="docutils literal notranslate"><span class="pre">scikit-image</span></code>’s <code class="docutils literal notranslate"><span class="pre">imread()</span></code> function to download the data from the link below and load it into a numpy array called <code class="docutils literal notranslate"><span class="pre">nuclei</span></code>.</p>
+<div class="cell tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">skimage</span> <span class="kn">import</span> <span class="n">io</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://raw.githubusercontent.com/kevinyamauchi/napari-spot-detection-tutorial/main/data/nuclei_cropped.tif&#39;</span>
+<span class="n">nuclei</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="viewing-the-image">
+<h2>Viewing the image<a class="headerlink" href="#viewing-the-image" title="Permalink to this headline">¶</a></h2>
+<p>As we did in the previous notebooks, we can view the image in napari using the <code class="docutils literal notranslate"><span class="pre">napari.view_image()</span></code> function. Here we set the colormap to <code class="docutils literal notranslate"><span class="pre">magma</span></code>.</p>
+<div class="cell tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napari</span>
+
+<span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">view_image</span><span class="p">(</span><span class="n">nuclei</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;magma&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">napari.utils</span> <span class="kn">import</span> <span class="n">nbscreenshot</span>
+
+<span class="n">nbscreenshot</span><span class="p">(</span><span class="n">viewer</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="segment-nuclei">
+<h2>Segment nuclei<a class="headerlink" href="#segment-nuclei" title="Permalink to this headline">¶</a></h2>
+<p>To segment the nuclei, we will use the <a class="reference external" href="https://github.com/MouseLand/cellpose-napari">cellpose napari plugin</a>. Please perform the segmentation using the instructions below. For more information on cellpose, please see the <a class="reference external" href="https://www.nature.com/articles/s41592-020-01018-x">paper</a> and <a class="reference external" href="https://github.com/MouseLand/cellpose">repository</a>.</p>
+<ol class="simple">
+<li><p>Start the cellpose plugin. From the menu bar, click Plugins-&gt;cellpose-napari: cellpose. You should see the plugin added to the right side of the viewer.</p></li>
+</ol>
+<a class="reference internal image-reference" href="../_images/cellpose_plugin.png"><img alt="cellpose plugin" class="align-center" src="../_images/cellpose_plugin.png" style="width: 80%;" /></a>
+<ol class="simple">
+<li><p>Select the “nuclei” image layer.</p></li>
+</ol>
+<a class="reference internal image-reference" href="../_images/cellpose_screenshots_image_selection.png"><img alt="select the image layer" class="align-center" src="../_images/cellpose_screenshots_image_selection.png" style="width: 80%;" /></a>
+<ol class="simple">
+<li><p>Set the model type to “nuclei”</p></li>
+</ol>
+<a class="reference internal image-reference" href="../_images/cellpose_screenshots_model_selection.png"><img alt="select the nuclei model" class="align-center" src="../_images/cellpose_screenshots_model_selection.png" style="width: 80%;" /></a>
+<ol>
+<li><p>We need to give cellpose an estimate of the size of the nuclei so it can properly scale the data. We can do so using a napari Shapes layer. With the Shapes layer, we will outline some nuclei and then cellpose will use those annotations to estimate the size of the nuclei.</p>
+<ol class="simple">
+<li><p>Click the “add Shapes” layer button in the viewer. This will create and select a new layer called “Shapes”.</p></li>
+</ol>
+<a class="reference internal image-reference" href="../_images/cellpose_screenshots_add_shape.png"><img alt="add a shapes layer to measure the diameter" class="align-center" src="../_images/cellpose_screenshots_add_shape.png" style="width: 80%;" /></a>
+<ol class="simple">
+<li><p>Set the mode to “Ellipse” by clicking the button in the layer controls.</p></li>
+<li><p>In the canvas, click and drag to add an ellipse that around a “representative” nucleus. For the purpose of this demo, this is enough, but for other data you may need to give more examples to make a better estimate of the cell diameter. If you need to pan/zoom while adding an ellipse, holding the spacebar will allow you to pan/zoom using your mouse (pan via click/drag, zoom by scrolling).</p></li>
+<li><p>If you would like to edit or move an ellipse, you can switch to “Select shapes” mode in the viewer. Shapes can now be moved by clicking on them and then dragging. They can be resized by selecting them and then dragging the control points.</p></li>
+</ol>
+<a class="reference internal image-reference" href="../_images/cellpose_screenshots_select_shape.png"><img alt="use selection mode to edit shapes" class="align-center" src="../_images/cellpose_screenshots_select_shape.png" style="width: 80%;" /></a>
+<ol class="simple">
+<li><p>Once you are happy with your annotations, you can click the “compute diameter from shape layer” button and you will see the “diameter” value populated. For this demo, the value is typically around 10 pixels.</p></li>
+</ol>
+<a class="reference internal image-reference" href="../_images/cellpose_screenshots_diameter.png"><img alt="estimate the cell diameters" class="align-center" src="../_images/cellpose_screenshots_diameter.png" style="width: 80%;" /></a>
+</li>
+<li><p>For this demo, we recommend de-selecting “average 4 nets”(potentially less accurate, but faster segmentation) and otherwise using the default settings. If you would like to learn more about the cellpose settings, please see the <a class="reference external" href="https://cellpose-napari.readthedocs.io/en/latest/settings.html">cellpose plugin documentation</a>.</p>
+<a class="reference internal image-reference" href="../_images/cellpose_screenshots_settings.png"><img alt="select the segmentation settings" class="align-center" src="../_images/cellpose_screenshots_settings.png" style="width: 80%;" /></a>
+</li>
+<li><p>Now you are ready to run the segmentation! Click the “run segmentation” button. Segmentation for this demo typically takes ~1.5 minutes. Note that there is not currently a progress bar, so please just be patient.</p>
+<a class="reference internal image-reference" href="../_images/cellpose_screenshots_run.png"><img alt="start the segmentation" class="align-center" src="../_images/cellpose_screenshots_run.png" style="width: 80%;" /></a>
+</li>
+<li><p>When the segmentation is completed, you will see some new layers added to the layer list. Of particular interest is “nuclei_p_masks_000”, which contains our segmentation mask added as a Labels layer.</p>
+<a class="reference internal image-reference" href="../_images/cellpose_screenshots_results.png"><img alt="select the segmentation settings" class="align-center" src="../_images/cellpose_screenshots_results.png" style="width: 80%;" /></a>
+</li>
+</ol>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="interactive_analysis.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">notebook: interactive analysis</p>
+            </div>
+        </a>
+    </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By napari core developers<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>
