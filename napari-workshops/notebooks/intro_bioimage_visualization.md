@@ -139,12 +139,14 @@ nbscreenshot(viewer)
 
 One of the real strengths of napari is that you have full control over all the critical layer properties both programmatically and via the GUI.
 
-Each `layer` that is added to the `viewer` can be found in the `viewer.layers` list which can be indexed either numerically or by the layer name, which is visible in the panel in the bottom left of the viewer. This layer has the name `nuclei`, which was automatically imputed because we originally named the variable we loaded from disk `nuclei`. Pretty cool!
+Each `layer` that is added to the `viewer` can be found in the `viewer.layers` list.
 
 ```{code-cell} ipython3
 # let's see what the layers list has in it right now
 print(viewer.layers)
 ```
+
+The layer list can be indexed either numerically or by the layer name, which is visible in the panel in the bottom left of the viewer. This layer has the name `nuclei`, which was automatically imputed because we originally named the variable we loaded from disk `nuclei`. Pretty cool!
 
 ```{code-cell} ipython3
 nuclei_layer = viewer.layers['nuclei']
@@ -224,7 +226,7 @@ As this is a 3D volume, we can also use napari to look at 2D slices along other 
 :tags: ["remove-cell"]
 
 viewer.layers['membranes'].contrast_limits = (0, 0.75)
-viewer.layers['nuclei'].contrast_limits = (0, 0.35)
+viewer.layers['nuclei'].contrast_limits = (0.07, 0.35)
 viewer.layers['division'].contrast_limits = (0, 1)
 viewer.dims.order = (2, 0, 1)
 viewer.dims.current_step = (25, 0, 60)
