@@ -10,4 +10,8 @@ chapters:
   - file: notebooks/intro_bioimage_visualization
   - file: notebooks/manual_annotation
   - file: notebooks/segmentation_with_cellpose
-
+- file: ZIDAS-0921/intro
+  sections:
+  - file: ZIDAS-0921/installation
+  - file: notebooks/viewing_images.md
+  - file: notebooks/using_plugins
