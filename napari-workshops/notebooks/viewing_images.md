@@ -94,10 +94,11 @@ For the first three options the file path will get passed through our fileIO plu
 Here we will explore the fourth option, explicitly loading a 3D image using the `tifffile` library and the `add_image()` method of our `Viewer` object.
 
 ```{code-cell} ipython3
-from tifffile import imread
+from skimage.io import imread
 
 # load the image data and inspect its shape
-nuclei = imread('data/nuclei.tif')
+nuclei_url = 'https://raw.githubusercontent.com/alisterburt/napari-workshops/main/napari-workshops/notebooks/data/nuclei.tif'
+nuclei = imread(nuclei_url)
 print(nuclei.shape)
 ```
 
@@ -189,13 +190,14 @@ Setting the `blending` of the second layer to `additive` now lets us see both to
 nbscreenshot(viewer)
 ```
 
-Let's now load in an additional channel of data containting a stain for cell membranes and add them to the viewer as a new layer.
+Let's now load in an additional channel of data containing a stain for cell membranes and add them to the viewer as a new layer.
 
 ```{code-cell} ipython3
-from tifffile import imread
+from skimage.io import imread
 
 # load the image data and inspect its shape
-membranes = imread('data/cell_membranes.tif')
+membranes_url = 'https://raw.githubusercontent.com/alisterburt/napari-workshops/main/napari-workshops/notebooks/data/cell_membranes.tif'
+membranes = imread(membranes_url)
 print(membranes.shape)
 ```
 
