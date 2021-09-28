@@ -58,80 +58,110 @@ To segment the nuclei, we will use the [cellpose napari plugin](https://github.c
 
 1. Start the cellpose plugin. From the menu bar, click Plugins->cellpose-napari: cellpose. You should see the plugin added to the right side of the viewer.
 
-```{image} resources/cellpose_plugin.png
-:alt:  cellpose plugin
-:width: 80%
-:align: center
-```
+<img src="https://raw.githubusercontent.com/alisterburt/napari-workshops/main/napari-workshops/notebooks/resources/cellpose_plugin.png" alt="cellpose plugin"  width="80%">
+
 
 2. Select the "nuclei" image layer.
 
-```{image} resources/cellpose_screenshots_image_selection.png
-:alt:  select the image layer
-:width: 80%
-:align: center
-```
+<img src="https://raw.githubusercontent.com/alisterburt/napari-workshops/main/napari-workshops/notebooks/resources/cellpose_screenshots_image_selection.png" alt="select the image layer"  width="80%">
+
 
 3. Set the model type to "nuclei"
 
-```{image} resources/cellpose_screenshots_model_selection.png
-:alt:  select the nuclei model
-:width: 80%
-:align: center
-```
+<img src="https://raw.githubusercontent.com/alisterburt/napari-workshops/main/napari-workshops/notebooks/resources/cellpose_screenshots_model_selection.png" alt="select the nuclei model"  width="80%">
+
 
 4. We need to give cellpose an estimate of the size of the nuclei so it can properly scale the data. We can do so using a napari Shapes layer. With the Shapes layer, we will outline some nuclei and then cellpose will use those annotations to estimate the size of the nuclei.
     1. Click the "add Shapes" layer button in the viewer. This will create and select a new layer called "Shapes".
 
-    ```{image} resources/cellpose_screenshots_add_shape.png
-	:alt:  add a shapes layer to measure the diameter
-	:width: 80%
-	:align: center
-	```
+    <img src="https://raw.githubusercontent.com/alisterburt/napari-workshops/main/napari-workshops/notebooks/resources/cellpose_screenshots_add_shape.png" alt="add a shapes layer to measure the diameter"  width="80%">
 
     2. Set the mode to "Ellipse" by clicking the button in the layer controls.
     3. In the canvas, click and drag to add an ellipse that around a "representative" nucleus. For the purpose of this demo, this is enough, but for other data you may need to give more examples to make a better estimate of the cell diameter. If you need to pan/zoom while adding an ellipse, holding the spacebar will allow you to pan/zoom using your mouse (pan via click/drag, zoom by scrolling).
     4. If you would like to edit or move an ellipse, you can switch to "Select shapes" mode in the viewer. Shapes can now be moved by clicking on them and then dragging. They can be resized by selecting them and then dragging the control points.
     
-    ```{image} resources/cellpose_screenshots_select_shape.png
-	:alt:  use selection mode to edit shapes
-	:width: 80%
-	:align: center
-	```
+    <img src="https://raw.githubusercontent.com/alisterburt/napari-workshops/main/napari-workshops/notebooks/resources/cellpose_screenshots_select_shape.png" alt="use selection mode to edit shapes"  width="80%">
 
     5. Once you are happy with your annotations, you can click the "compute diameter from shape layer" button and you will see the "diameter" value populated. For this demo, the value is typically around 10 pixels.
+    
+    <img src="https://raw.githubusercontent.com/alisterburt/napari-workshops/main/napari-workshops/notebooks/resources/cellpose_screenshots_diameter.png" alt="estimate the cell diameters"  width="80%">
 
-    ```{image} resources/cellpose_screenshots_diameter.png
-	:alt:  estimate the cell diameters
-	:width: 80%
-	:align: center
-	```
 
 5. For this demo, we recommend de-selecting "average 4 nets"(potentially less accurate, but faster segmentation) and otherwise using the default settings. If you would like to learn more about the cellpose settings, please see the [cellpose plugin documentation](https://cellpose-napari.readthedocs.io/en/latest/settings.html).
 
- 	```{image} resources/cellpose_screenshots_settings.png
-	:alt:  select the segmentation settings
-	:width: 80%
-	:align: center
-	```
+    <img src="https://raw.githubusercontent.com/alisterburt/napari-workshops/main/napari-workshops/notebooks/resources/cellpose_screenshots_settings.png" alt="select the segmentation settings"  width="80%">
+
 	
 6. Now you are ready to run the segmentation! Click the "run segmentation" button. Segmentation for this demo typically takes ~1.5 minutes. Note that there is not currently a progress bar, so please just be patient.
 
- 	```{image} resources/cellpose_screenshots_run.png
-	:alt:  start the segmentation
-	:width: 80%
-	:align: center
-	```
+    <img src="https://raw.githubusercontent.com/alisterburt/napari-workshops/main/napari-workshops/notebooks/resources/cellpose_screenshots_run.png" alt="start the segmentation"  width="80%">
+
 
 7. When the segmentation is completed, you will see some new layers added to the layer list. Of particular interest is "nuclei_p_masks_000", which contains our segmentation mask added as a Labels layer.
 
- 	```{image} resources/cellpose_screenshots_results.png
-	:alt:  select the segmentation settings
-	:width: 80%
-	:align: center
-	```
+    <img src="https://raw.githubusercontent.com/alisterburt/napari-workshops/main/napari-workshops/notebooks/resources/cellpose_screenshots_results.png" alt="completed segmentation"  width="80%">
+
+## Quantify nuclei shape
+
+In this next section, we will compute and display some basic properties of the segmented cells (e.g., area) using scikit-image and matplotlib.
+
+### Measure area and perimeter
+
+We can use the scikit-image [`regionprops_table`](https://scikit-image.org/docs/dev/api/skimage.measure.html#skimage.measure.regionprops_table) function to measure the area and perimeter of the detected nuclei. `regionprops_table` outputs a dictionary where each key is a name of a measurement (e.g., `'area'`) and the value is the measurement value for each detected object (nucleus in the case).
+
+```{code-cell} ipython3
+:tags: ["remove-cell"]
+
+from skimage.io import imread
+
+label_im = imread('./data/nuclei_cp_masks_000.png')
+viewer.add_labels(label_im, name='nuclei_cp_masks_000')
+```
+
+```{code-cell} ipython3
+from skimage.measure import regionprops_table
+
+# measure the area and nucleus for each nucleus
+rp_table = regionprops_table(
+    viewer.layers['nuclei_cp_masks_000'].data,
+    properties=('area', 'perimeter')
+)
+```
+
+```{code-cell} ipython3
+from matplotlib import pyplot as plt
+import numpy as np
 
 
+# print the median area
+median_area = np.median(rp_table['area'])
+print(f'median area: {median_area} px')
 
+# plot a histogram of the areas
+plt.hist(rp_table['area']);
+plt.xlabel('nucleus area', fontsize=20);
+plt.ylabel('count', fontsize=20);
+plt.show();
+```
 
- 
+Finally, we can calculate the circularity from the area and perimeter measurements we made above. The circularity is a shape factor that is 1 when the object is a circle and less than one for shapes that are more "starfish-like"/ The circularity is defined as
+
+$$f_{circ} = \frac{4 \pi A}{P^2}$$
+
+where A is the area and P is the perimeter of the object. We plot the circularity vs. the area and see that the circularity of the nuclei does not appear to depend on the area.
+
+```{code-cell} ipython3
+# calculate the circularity of the nuclei
+circularity = (4 * np.pi * rp_table['area']) / np.square(rp_table['perimeter'])
+
+# use matplot lib to visualize the relationship between nucleus circularity and area
+plt.scatter(rp_table['area'], circularity);
+plt.xlabel('nucleus area', fontsize=20);
+plt.ylabel('circularity', fontsize=20);
+plt.ylim((0, 2))
+plt.show()
+```
+
+# Conclusions
+
+In this notebook, we have used the cellpose-napari plugin to perform nucleus segmentation. We then used the results of the segmentation to inspect the relationship between nucleus area and circularity. This demonstration highlights how one can combine napari plugins and python libraries to make measurements on microscopy data.
