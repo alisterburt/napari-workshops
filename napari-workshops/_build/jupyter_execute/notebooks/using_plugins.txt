@@ -1,0 +1,50 @@
+from skimage import io
+
+url = 'https://raw.githubusercontent.com/kevinyamauchi/napari-spot-detection-tutorial/main/data/nuclei_cropped.tif'
+nuclei = io.imread(url)
+
+import napari
+
+viewer = napari.view_image(nuclei, colormap='magma')
+
+from napari.utils import nbscreenshot
+
+nbscreenshot(viewer)
+
+from skimage.io import imread
+
+label_im = imread('./data/nuclei_cp_masks_000.png')
+viewer.add_labels(label_im, name='nuclei_cp_masks_000')
+
+from skimage.measure import regionprops_table
+
+# measure the area and nucleus for each nucleus
+rp_table = regionprops_table(
+    viewer.layers['nuclei_cp_masks_000'].data,
+    properties=('area', 'perimeter')
+)
+
+from matplotlib import pyplot as plt
+
+
+# print the median area
+median_area = np.median(rp_table['area'])
+print(f'median area: {median_area} px')
+
+# plot a histogram of the areas
+plt.hist(rp_table['area']);
+plt.xlabel('nucleus area', fontsize=20);
+plt.ylabel('count', fontsize=20);
+plt.show();
+
+import numpy as np
+
+# calculate the circularity of the nuclei
+circularity = (4 * np.pi * rp_table['area']) / np.square(rp_table['perimeter'])
+
+# use matplot lib to visualize the relationship between nucleus circularity and area
+plt.scatter(rp_table['area'], circularity);
+plt.xlabel('nucleus area', fontsize=20);
+plt.ylabel('circularity', fontsize=20);
+plt.ylim((0, 2))
+plt.show()
