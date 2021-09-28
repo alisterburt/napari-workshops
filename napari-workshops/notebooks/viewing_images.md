@@ -91,7 +91,7 @@ There are a few different ways to load images to into our `viewer`.
 
 For the first three options the file path will get passed through our fileIO plugin interface, allowing you to easily leverage highly customized fileIO plugins for your diverse needs. The fourth option allows you complete control over loading and visualization and is most suited for when you have data already loaded into your notebook from other sources.
 
-Here we will explore the fourth option, explicitly loading a 3D image using the `tifffile` library and the `add_image()` method of our `Viewer` object.
+Here we will explore the fourth option, explicitly loading a 3D image using the `scikit-image` library and the `add_image()` method of our `Viewer` object.
 
 ```{code-cell} ipython3
 from skimage.io import imread
