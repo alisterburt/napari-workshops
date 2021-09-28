@@ -1,7 +1,7 @@
 # ZIDAS napari intro 09/21
 
 This workshop will take you through the basics of bioimage analysis in Python and [napari](https://www.napari.org).
-We will be some analysis spot detection using a combination of `napari`, `scikit-image`, `scipy`, and `cellpose`.
+We will be some analysis on segmented nuclei using a combination of `napari`, `scikit-image`, `scipy`, and `cellpose`.
 
 ## Instructors
 The instructor for this session is Kevin Yamauchi ([@ky396](https://twitter.com/ky396))
