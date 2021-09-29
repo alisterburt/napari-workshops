@@ -1,0 +1,57 @@
+from skimage.io import imread
+
+nuclei_url = 'https://raw.githubusercontent.com/alisterburt/napari-workshops/main/napari-workshops/notebooks/data/nuclei.tif'
+nuclei = imread(nuclei_url)
+
+viewer = napari.view_image(
+    nuclei,
+    colormap='blue',
+    contrast_limits=(0, 0.4)
+);
+
+# choose the z slice where nuclei are in focus
+viewer.dims.current_step = (30, 0, 0)
+
+from napari.utils import nbscreenshot
+
+nbscreenshot(viewer)
+
+viewer.layers[0].colormap
+
+import numpy as np
+
+colors = np.linspace(
+    start=[1, 1, 1, 1],
+    stop=[0, 0, 1, 1],
+    num=10,
+    endpoint=True
+)
+print(colors)
+
+new_colormap = {
+    'colors': colors,
+    'name': 'white_to_blue',
+    'interpolation': 'linear'
+}
+viewer.layers[0].colormap = new_colormap
+
+nbscreenshot(viewer)
+
+# load the image data
+membranes_url = 'https://raw.githubusercontent.com/alisterburt/napari-workshops/main/napari-workshops/notebooks/data/cell_membranes.tif'
+membranes = imread(membranes_url)
+
+white_green_cmap = {
+    'colors': [[1, 1, 1, 1], [0, 1, 0, 1]],
+    'name': 'white_to_green',
+    'interpolation': 'linear'
+}
+
+viewer.add_image(
+    membranes,
+    colormap=white_green_cmap,
+    contrast_limits=(0.02, 0.1),
+    opacity=0.7
+)
+
+nbscreenshot(viewer)
