@@ -14,4 +14,5 @@ chapters:
   sections:
   - file: ZIDAS-0921/installation
   - file: notebooks/viewing_images.md
-  - file: notebooks/using_plugins
+  - file: notebooks/using_plugins.md
+  - file: notebooks/custom_colormaps.md
