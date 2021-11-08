@@ -81,7 +81,7 @@ In this tutorial, we will install python via miniforge, a distribution of anacon
 
 	```bash
 	conda install -c conda-forge notebook
-	pip install magicgui psygnal==0.1.4 "napari[all]"
+	pip install cookiecutter magicgui psygnal==0.1.4 "napari[all]"
 	pip install cellpose-napari
 	```
 
