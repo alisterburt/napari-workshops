@@ -16,3 +16,6 @@ chapters:
   - file: notebooks/viewing_images.md
   - file: notebooks/using_plugins.md
   - file: notebooks/custom_colormaps.md
+- file: SwissBIAS-1121/intro
+  sections:
+  - file: SwissBIAS-1121/installation
