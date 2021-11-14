@@ -6,7 +6,7 @@ During this tutorial, we will be working through a set of notebooks. On this pag
 ### Downloading .zip
 You can download the notebooks as a .zip file. To do so, please do the following:
 
-1. Nav
+1. Navigate your web browser to https://github.com/kevinyamauchi/napari_plugin_intro_workshop
 2. Click the green "Code" button to open the download menu and then "Download ZIP"
     ![download code](./resources/download_code.png)
 3. Choose the location you would like to download the .zip.
