@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SwissBIAS napari intro and plugins 11/21 &#8212; napari workshops</title>
     
-  <link href="../_static/css/theme.css" rel="stylesheet" />
-  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -31,7 +31,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -54,7 +54,10 @@
     <link rel="next" title="python setup &amp; napari installation" href="installation.html" />
     <link rel="prev" title="notebook: using custom colormaps in napari" href="../notebooks/custom_colormaps.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
     
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
@@ -173,6 +176,31 @@
      python setup &amp; napari installation
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="notebook_setup.html">
+     Downloading and launching the notebooks
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../notebooks/viewer_intro.html">
+     notebook: bioimage visualization in python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../notebooks/segmenting_and_measuring_nuclei.html">
+     notebook: segmenting nuclei with the cellpose napari plugin
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../notebooks/spot_detection.html">
+     notebook: interactive analysis with jupyter notebook, napari, scikit-image, and scipy
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="make_a_simple_plugin.html">
+     Creating a napari plugin
+    </a>
+   </li>
   </ul>
  </li>
 </ul>
@@ -269,6 +297,11 @@
    Goals
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tutorial-exercises">
+   Tutorial exercises
+  </a>
+ </li>
 </ul>
 
             </nav>
@@ -297,6 +330,23 @@
 <li><p>make simple plugins using the napari hookspecs</p></li>
 </ul>
 </div>
+<div class="section" id="tutorial-exercises">
+<h2>Tutorial exercises<a class="headerlink" href="#tutorial-exercises" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p>Install napari and dependencies. Instructions <a class="reference internal" href="installation.html"><span class="doc std std-doc">here</span></a>.</p></li>
+<li><p>Download the notebooks and launch jupyter notebook. Instructions <a class="reference internal" href="notebook_setup.html"><span class="doc std std-doc">here</span></a>.</p></li>
+<li><p>Do the introduction to viewing images in napari (<code class="docutils literal notranslate"><span class="pre">part_0_viewer_intro.ipynb</span></code>).</p></li>
+<li><p>Segment and measure nuclei using the cellpose plugin (<code class="docutils literal notranslate"><span class="pre">part_1_segmenting_and_measuring_nuclei.ipynb</span></code>).</p></li>
+<li><p>Perform spot detection using your own spot detection function. There are 3 versions of this tutorial (see description below). They all cover the same content, they just require more or less coding depending on experience level.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">part_2_spot_detection_tutorial_beginner.ipynb</span></code>: this is the activity notebook for people new to image processing with python</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">part_2_spot_detection_tutorial_advanced.ipynb</span></code>: this is the activity notebook for people with experience performing image processing with python</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">part_2_spot_detection_tutorial_solution.ipynb</span></code>: this is the solution to the activity.</p></li>
+</ul>
+</li>
+<li><p>Turn your spot detection function into a napari plugin. Instructions <a class="reference internal" href="make_a_simple_plugin.html"><span class="doc std std-doc">here</span></a>.</p></li>
+</ol>
+</div>
 <div class="toctree-wrapper compound">
 </div>
 </div>
@@ -324,31 +374,22 @@
               </div>
               
         
-            
-
-
-
-<div class='prev-next-bottom'>
-    
-    <div id="prev">
-        <a class="left-prev" href="../notebooks/custom_colormaps.html" title="previous page">
-            <i class="prevnext-label fas fa-angle-left"></i>
-            <div class="prevnext-info">
-                <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">notebook: using custom colormaps in napari</p>
-            </div>
-        </a>
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="../notebooks/custom_colormaps.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">notebook: using custom colormaps in napari</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="installation.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">python setup &amp; napari installation</p>
     </div>
-     <div id="next">
-        <a class="right-next" href="installation.html" title="next page">
-            <div class="prevnext-info">
-                <p class="prevnext-label">next</p>
-                <p class="prevnext-title">python setup &amp; napari installation</p>
-            </div>
-            <i class="prevnext-label fas fa-angle-right"></i>
-        </a>
-     </div>
-
+    <i class="fas fa-angle-right"></i>
+    </a>
 </div>
         
         </div>
@@ -369,8 +410,7 @@
       </div>
     </div>
   
-  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
 
-  
   </body>
 </html>

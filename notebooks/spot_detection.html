@@ -1,0 +1,662 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>notebook: interactive analysis with jupyter notebook, napari, scikit-image, and scipy &#8212; napari workshops</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Creating a napari plugin" href="../SwissBIAS-1121/make_a_simple_plugin.html" />
+    <link rel="prev" title="notebook: segmenting nuclei with the cellpose napari plugin" href="segmenting_and_measuring_nuclei.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo.ico" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">napari workshops</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../home.html">
+   Home
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../NDCN-0821/intro.html">
+   NDCN Workshop 08/21
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../NDCN-0821/installation.html">
+     python setup &amp; napari installation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="intro_bioimage_visualization.html">
+     notebook: bioimage visualization in python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="manual_annotation.html">
+     notebook: manual annotation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="segmentation_with_cellpose.html">
+     notebook: segmenting nuclei with the cellpose napari plugin
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../ZIDAS-0921/intro.html">
+   ZIDAS napari intro 09/21
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ZIDAS-0921/installation.html">
+     python setup &amp; napari installation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="viewing_images.html">
+     notebook: bioimage visualization in python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="using_plugins.html">
+     notebook: segmenting nuclei with the cellpose napari plugin
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="custom_colormaps.html">
+     notebook: using custom colormaps in napari
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../SwissBIAS-1121/intro.html">
+   SwissBIAS napari intro and plugins 11/21
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../SwissBIAS-1121/installation.html">
+     python setup &amp; napari installation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../SwissBIAS-1121/notebook_setup.html">
+     Downloading and launching the notebooks
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="viewer_intro.html">
+     notebook: bioimage visualization in python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="segmenting_and_measuring_nuclei.html">
+     notebook: segmenting nuclei with the cellpose napari plugin
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     notebook: interactive analysis with jupyter notebook, napari, scikit-image, and scipy
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../SwissBIAS-1121/make_a_simple_plugin.html">
+     Creating a napari plugin
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        <a class="dropdown-buttons"
+            href="../_sources/notebooks/spot_detection.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/notebooks/spot_detection.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/alisterburt/napari-workshops"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/alisterburt/napari-workshops/master?urlpath=tree/notebooks/spot_detection.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#overview">
+   Overview
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-source">
+   Data source
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#next-steps">
+   Next steps
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#screenshots">
+   screenshots
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#load-the-data">
+   Load the data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#view-the-data">
+   View the data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#create-an-image-filter">
+   Create an image filter
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#detect-spots">
+   Detect spots
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conclusion">
+   Conclusion
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="notebook-interactive-analysis-with-jupyter-notebook-napari-scikit-image-and-scipy">
+<h1>notebook: interactive analysis with jupyter notebook, napari, scikit-image, and scipy<a class="headerlink" href="#notebook-interactive-analysis-with-jupyter-notebook-napari-scikit-image-and-scipy" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>In this activity, we will perform spot detection on some in situ sequencing data (<a class="reference external" href="https://www.cell.com/cell/fulltext/S0092-8674(19)31067-0s">Feldman and Singh et al., Cell, 2019</a>). In doing so, we will combine methods from <a class="reference external" href="https://www.scipy.org/">scipy</a> and <a class="reference external" href="https://scikit-image.org/">scikit-image</a>. The goal is to familiarize you with performing analysis that integrates the scientific python ecosystem and napari.</p>
+</div>
+<div class="section" id="data-source">
+<h2>Data source<a class="headerlink" href="#data-source" title="Permalink to this headline">¶</a></h2>
+<p>The data were downloaded from the <a class="reference external" href="https://github.com/feldman4/OpticalPooledScreens">OpticalPooledScreens github repository</a>.</p>
+</div>
+<div class="section" id="next-steps">
+<h2>Next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">¶</a></h2>
+<p>Following this activity, we will use the workflow generated in this activity to create a napari spot detection plugin.</p>
+</div>
+<div class="section" id="screenshots">
+<h2>screenshots<a class="headerlink" href="#screenshots" title="Permalink to this headline">¶</a></h2>
+<p>For the solution notebook, we are including screenshots via the <code class="docutils literal notranslate"><span class="pre">nbscreenshot</span></code> utility. These are not required for your notebook.</p>
+<p>An example usage: <code class="docutils literal notranslate"><span class="pre">nbscreenshot(viewer)</span></code></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">napari.utils</span> <span class="kn">import</span> <span class="n">nbscreenshot</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="load-the-data">
+<h2>Load the data<a class="headerlink" href="#load-the-data" title="Permalink to this headline">¶</a></h2>
+<p>In the cells below load the data using the scikit-image <code class="docutils literal notranslate"><span class="pre">imread()</span></code> function. For more information about the <code class="docutils literal notranslate"><span class="pre">imread()</span></code> function, please see the <a class="reference external" href="https://scikit-image.org/docs/dev/api/skimage.io.html#skimage.io.imread">scikit-image docs</a>. We are loading two images:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">nuclei</span></code>: an image of cell nuclei</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">spots</span></code>: an image of in situ sequencing spots</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">skimage</span> <span class="kn">import</span> <span class="n">io</span>
+
+<span class="n">nuclei_url</span> <span class="o">=</span> <span class="s1">&#39;https://raw.githubusercontent.com/kevinyamauchi/napari-spot-detection-tutorial/main/data/nuclei_cropped.tif&#39;</span>
+<span class="n">nuclei</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">nuclei_url</span><span class="p">)</span>
+
+<span class="n">spots_url</span> <span class="o">=</span> <span class="s1">&#39;https://raw.githubusercontent.com/kevinyamauchi/napari-spot-detection-tutorial/main/data/spots_cropped.tif&#39;</span>
+<span class="n">spots</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">spots_url</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="view-the-data">
+<h2>View the data<a class="headerlink" href="#view-the-data" title="Permalink to this headline">¶</a></h2>
+<p>We will use napari to view our data. To do so, we first must create the viewer. Once the Viewer is created, we can add images to the viewer via the Viewer’s <code class="docutils literal notranslate"><span class="pre">add_image()</span></code> method.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">napari</span>
+
+<span class="c1"># create the napari viewer</span>
+<span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">();</span>
+
+<span class="c1"># add the nuclei image to the viewer</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="n">nuclei</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>In the cell below, add the spots image to the viewer as was done above for the nuclei image. After loading the data, inspect it in the viewer and adjust the layer settings to your liking (e.g., contrast limits, colormap). You can pan/zoom around the image by click/dragging to pan and scrolling with your mousewheel or trackpad to zoom.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># add the spots image to the viewer</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="n">spots</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nbscreenshot</span><span class="p">(</span><span class="n">viewer</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="create-an-image-filter">
+<h2>Create an image filter<a class="headerlink" href="#create-an-image-filter" title="Permalink to this headline">¶</a></h2>
+<p>You may have noticed the the spots image contains background and autofluorescence from the cells. To improve spot detection, we will apply a high pass filter to improve the contrast of the spots.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">ndimage</span> <span class="k">as</span> <span class="n">ndi</span>
+
+<span class="k">def</span> <span class="nf">gaussian_high_pass</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">sigma</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">2</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Apply a gaussian high pass filter to an image.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    image : np.ndarray</span>
+<span class="sd">        The image to be filtered.</span>
+<span class="sd">    sigma : float</span>
+<span class="sd">        The sigma (width) of the gaussian filter to be applied.</span>
+<span class="sd">        The default value is 2.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    high_passed_im : np.ndarray</span>
+<span class="sd">        The image with the high pass filter applied</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">low_pass</span> <span class="o">=</span> <span class="n">ndi</span><span class="o">.</span><span class="n">gaussian_filter</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">sigma</span><span class="p">)</span>
+    <span class="n">high_passed_im</span> <span class="o">=</span> <span class="n">image</span> <span class="o">-</span> <span class="n">low_pass</span>
+    
+    <span class="k">return</span> <span class="n">high_passed_im</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>In the cell below, apply the gaussian high pass filter to the <code class="docutils literal notranslate"><span class="pre">spots</span></code> image and add the image to the viewer.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use the gaussian_high_pass function to filter the spots image</span>
+<span class="n">filtered_spots</span> <span class="o">=</span> <span class="n">gaussian_high_pass</span><span class="p">(</span><span class="n">spots</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># add the filtered image to the viewer</span>
+<span class="c1"># hint: set the opacity &lt; 1 in order to see the layers underneath</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="n">filtered_spots</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nbscreenshot</span><span class="p">(</span><span class="n">viewer</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="detect-spots">
+<h2>Detect spots<a class="headerlink" href="#detect-spots" title="Permalink to this headline">¶</a></h2>
+<p>Next, we will create a function to detect the spots in the spot image. This function should take the raw image, apply the gaussian high pass filter from above and then use one of the blob detection algorithms from sci-kit image to perform the blob detection. The <code class="docutils literal notranslate"><span class="pre">detect_spots()</span></code> function should return a numpy array containing the coordinates of each spot and a numpy array containing the diameter of each spot.</p>
+<p>Some hints:</p>
+<ul class="simple">
+<li><p>See the <a class="reference external" href="https://scikit-image.org/docs/dev/auto_examples/features_detection/plot_blob.html">blob detection tutorial from scikit-image</a>. - We recommend the <a class="reference external" href="https://scikit-image.org/docs/dev/api/skimage.feature.html#skimage.feature.blob_log">blob_log detector</a>, but feel free to experiment!</p></li>
+<li><p>See the “Note” from the blob_log docs: “The radius of each blob is approximately <span class="math notranslate nohighlight">\(\sqrt{2}\sigma\)</span> for a 2-D image”</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">skimage.feature</span> <span class="kn">import</span> <span class="n">blob_log</span>
+
+<span class="k">def</span> <span class="nf">detect_spots</span><span class="p">(</span>
+    <span class="n">image</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">high_pass_sigma</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="n">spot_threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.01</span><span class="p">,</span>
+    <span class="n">blob_sigma</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Apply a gaussian high pass filter to an image.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    image : np.ndarray</span>
+<span class="sd">        The image in which to detect the spots.</span>
+<span class="sd">    high_pass_sigma : float</span>
+<span class="sd">        The sigma (width) of the gaussian filter to be applied.</span>
+<span class="sd">        The default value is 2.</span>
+<span class="sd">    spot_threshold : float</span>
+<span class="sd">        The threshold to be passed to the blob detector.</span>
+<span class="sd">        The default value is 0.01.</span>
+<span class="sd">    blob_sigma: float</span>
+<span class="sd">        The expected sigma (width) of the spots. This parameter</span>
+<span class="sd">        is passed to the &quot;max_sigma&quot; parameter of the blob</span>
+<span class="sd">        detector.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    points_coords : np.ndarray</span>
+<span class="sd">        An NxD array with the coordinate for each detected spot.</span>
+<span class="sd">        N is the number of spots and D is the number of dimensions.</span>
+<span class="sd">    sizes : np.ndarray</span>
+<span class="sd">        An array of size N, where N is the number of detected spots</span>
+<span class="sd">        with the diameter of each spot.</span>
+<span class="sd">    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># filter the image</span>
+    <span class="n">filtered_spots</span> <span class="o">=</span> <span class="n">gaussian_high_pass</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">high_pass_sigma</span><span class="p">)</span>
+
+    <span class="c1"># detect the spots on the filtered image</span>
+    <span class="n">blobs_log</span> <span class="o">=</span> <span class="n">blob_log</span><span class="p">(</span>
+        <span class="n">filtered_spots</span><span class="p">,</span>
+        <span class="n">max_sigma</span><span class="o">=</span><span class="n">blob_sigma</span><span class="p">,</span>
+        <span class="n">num_sigma</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">threshold</span><span class="o">=</span><span class="n">spot_threshold</span>
+    <span class="p">)</span>
+    
+    <span class="c1"># convert the output of the blob detector to the </span>
+    <span class="c1"># desired points_coords and sizes arrays</span>
+    <span class="c1"># (see the docstring for details)</span>
+    <span class="n">points_coords</span> <span class="o">=</span> <span class="n">blobs_log</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">sizes</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">blobs_log</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">points_coords</span><span class="p">,</span> <span class="n">sizes</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>In the cell below, apply <code class="docutils literal notranslate"><span class="pre">detect_spots()</span></code> to our <code class="docutils literal notranslate"><span class="pre">spots</span></code> image. To visualize the results, add the spots to the viewer as a <a class="reference external" href="https://napari.org/tutorials/fundamentals/points.html">Points layer</a>. If you would like to see an example of using a points layer, see <a class="reference external" href="https://github.com/napari/napari/blob/master/examples/add_points.py">this example</a>. To test out your function, vary the detection parameters and see how they affect the results. Note that each time you run the cell, the new results are added as an addition Points layer, allowing you to compare results from different parameters.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="c1"># detect the spots</span>
+<span class="n">spot_coords</span><span class="p">,</span> <span class="n">spot_sizes</span> <span class="o">=</span> <span class="n">detect_spots</span><span class="p">(</span>
+    <span class="n">spots</span><span class="p">,</span>
+    <span class="n">high_pass_sigma</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">spot_threshold</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>
+    <span class="n">blob_sigma</span><span class="o">=</span><span class="mi">2</span>
+<span class="p">)</span>
+
+<span class="c1"># add the detected spots to the viewer as a Points layer</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">add_points</span><span class="p">(</span><span class="n">spot_coords</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">spot_sizes</span><span class="p">,</span> <span class="n">symbol</span><span class="o">=</span><span class="s1">&#39;ring&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nbscreenshot</span><span class="p">(</span><span class="n">viewer</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">¶</a></h2>
+<p>In this activity, we have interactively prototyped a spot detection function using a combination of jupyter notebook, scipy, scikit-image, and napari. In the next activity, we will take the spot detection function we created and turn it into a napari plugin.</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="segmenting_and_measuring_nuclei.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">notebook: segmenting nuclei with the cellpose napari plugin</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../SwissBIAS-1121/make_a_simple_plugin.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Creating a napari plugin</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By napari core developers<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>
