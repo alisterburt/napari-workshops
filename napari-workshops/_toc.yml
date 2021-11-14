@@ -19,3 +19,8 @@ chapters:
 - file: SwissBIAS-1121/intro
   sections:
   - file: SwissBIAS-1121/installation
+  - file: SwissBIAS-1121/notebook_setup.md
+  - file: notebooks/viewer_intro.md
+  - file: notebooks/segmenting_and_measuring_nuclei.md
+  - file: notebooks/spot_detection.md
+  - file: SwissBIAS-1121/make_a_simple_plugin
