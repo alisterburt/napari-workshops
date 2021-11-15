@@ -49,12 +49,13 @@ You will be asked for some information to customize the setup of your plugin. Ea
 - `email [yourname@example.com]`: this email will be listed as the contact information in the package metadata
 - `github_username [githubuser]`: if you have a github username, you can enter it here
 - `plugin_name [napari-foobar]`: enter the name you would like your plugin to be called. spaces are not allowed and are often replaced with `-` (e.g., `napari-spot-detector`).
+- `Select github_repository_url:` this is used for plugin metadata and is not required now. If you don't plan to upload it to your github, select 2.
 - `module_name [napari_foobar]`: this is the name of the module containing your plugin code. typically, this is the plugin name with the `-` replaced with `_` (e.g., `napari_spot_detector`).
 - `short_description [A simple plugin to use with napari]`: give a one sentence description of your plugin. This will go into the readme.\
-- `include_reader_plugin [y]`: answer`y` (for yes) if you would like a reader plugin. We do not need a reader plugin for this tutorial, so answer `n` for no.
-- `include_writer_plugin [y]`answer`y` (for yes) if you would like a writer plugin. We do not need a reader plugin for this tutorial, so answer `n` for no.
-- `include_dock_widget_plugin [y]`: answer`y` (for yes) if you would like a dock widget plugin. We do not need a reader plugin for this tutorial, so answer `n` for no.
-- `include_function_plugin [y]`: answer`y` (for yes) if you would like a reader plugin. We are implementing a function plugin for this tutorial, so answer `y` for yes.
+- `include_reader_plugin [y]`: answer `y` (for yes) if you would like a reader plugin. We do not need a reader plugin for this tutorial, so answer `n` for no.
+- `include_writer_plugin [y]`answer `y` (for yes) if you would like a writer plugin. We do not need a reader plugin for this tutorial, so answer `n` for no.
+- `include_dock_widget_plugin [y]`: answer `y` (for yes) if you would like a dock widget plugin. We do not need a reader plugin for this tutorial, so answer `n` for no.
+- `include_function_plugin [y]`: answer `y` (for yes) if you would like a function plugin. We are implementing a function plugin for this tutorial, **so answer `y` for yes**.
 - `use_git_tags_for_versioning [n]`: we will not be covering setting plugin versions in this tutorial, so enter `n` for no.
 - `Select docs_tool`: the repository can be set up to build documentation from your plugin using one of the popular frameworks. We will not be making documentation in this tutorial, so select option 3 (none).
 - `Select license`: select the license you would like to use for your plugin. The license sets the rules for how others can build upon and re-use your plugin code. For more information on typical open source licenses, [choosealicense.com](https://choosealicense.com/) is a good primer. The default choice for is [BSD-3](https://opensource.org/licenses/BSD-3-Clause).
@@ -69,12 +70,13 @@ napari-spot-detector/
 │      └── test_and_deploy.yml
 ├── LICENSE
 ├── MANIFEST.in
-├── napari_spot_detector
-│   ├── __init__.py
-│   ├── _function.py
-│   └── _tests
+├── src
+|   └──napari_spot_detector
 │       ├── __init__.py
-│       └── test_function.py
+│       ├── _function.py
+│       └── _tests
+│           ├── __init__.py
+│           └── test_function.py
 ├── README.md
 ├── requirements.txt
 ├── setup.cfg
@@ -93,9 +95,7 @@ You have now set up the directory for your new plugin! You can explore the direc
 ## Implementing a function hookspec
 In this step, we will implement our `detect_spots()` function in the function hookspec. First, we will add our spot detection function to the plugin package. Then, we will add the type annotations to the function to so that napari can infer the correct GUI elements to add to our plugin.
 
-1. To edit your plugin source code, open it in VSCode (an integrated development environment).
-	- Open the [system search](https://help.ubuntu.com/stable/ubuntu-help/gs-use-system-search.html.en) by either clicking "Activities" in the upper left hand corner of the screen or pressing the "super key" (typically "command" on Mac or Windows key on Windows).
-	- Search for VSCode and click on it
+1. To edit your plugin source code, open an integrated development environment (VSCode is a good, free option) or text editor.
 2. In VSCode, open the directory you created with `cookiecutter` in the section above. 
 	- From the "File" menu, select "Open..."
 	- Navigate to and select the directory you created with `cookiecutter` (`~/Documents/napari-spot-detector` if you called your plugin `napari-spot-detector)`. 
@@ -137,7 +137,10 @@ In this step, we will implement our `detect_spots()` function in the function ho
 	- `layer_type`: the name of the layer type as a string (i.e., `'Points'`)
 9. Add type annotations to the function parameters (inputs). Napari (via [magicgui](https://napari.org/magicgui/)) will infer the required GUI elements from the type annotations. We have to add annotations to both the parameters (i.e., inputs to the function) and the 
 10. Annotate the Return type as `"napari.types.LayerDataTuple"`. 
-11.  Note that in the step above, we annotate the Return type as `"napari.types.LayerDataTuple"` 
+11. Add the required imports for the `scipy.ndimage` module and `scikit-image` `blob_log()` function to the top of the file.
+    - `from scipy import ndimage as ndi`
+    - `from skimage.feature import blob_log`
+
 
 ### _function.py solution
 
@@ -244,8 +247,7 @@ def detect_spots(
         points_coords,
         {
             "face_color": "magenta",
-            "size": sizes,
-            "symbol": 'ring'
+            "size": sizes
         },
         "Points"
     )
@@ -271,7 +273,7 @@ To test and use our plugin, we need to install it in our python environment. Fir
 cd ~/Documents/napari-spot-detector
 ```
 
-Then, we install the plugin with pip. pip is the package installer for python (see [the documentation](https://pip.pypa.io/en/stable/) for more information). We will use the `-e` option to install in "editable" mode. This means that when we in make a change to our 
+Then, we install the plugin with pip. pip is the package installer for python (see [the documentation](https://pip.pypa.io/en/stable/) for more information). We will use the `-e` option to install in "editable" mode. This means that when we in make a change to our source code, it will be update the installed package the next time it is imported. 
 
 ```bash
 pip install -e .
@@ -283,7 +285,7 @@ To confirm if your installation completed successfully, you can launch napari fr
 napari
 ```
 
-Once napari is open, you can open your plugin from the "Plugin" menu. You can test your plugin by locating the spots image from the spot detection tutorial in the File browser (`~/Documents/napari-spot-detection-tutorial/data/spots_cropped.tif`), dragging the image into the napari viewer, and try running the plugin.
+Once napari is open, you can open your plugin from the "Plugin" menu. You can test your plugin by locating the spots image from the tutorial notebooks folder (`napari_plugin_intro_workshop`) we downloaded at the beginning of this tutorial in the File browser (`<path to notebook folder>/data/spots_cropped.tif`), dragging the image into the napari viewer, and try running the plugin.
 
 Congratulations! You have made your first napari plugin!
 
