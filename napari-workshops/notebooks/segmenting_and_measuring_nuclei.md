@@ -124,9 +124,9 @@ viewer.add_labels(label_im, name='nuclei_cp_masks_000')
 from skimage.measure import regionprops_table
 
 # measure the area and nucleus for each nucleus
-label_im = viewer.layers['nuclei_cp_masks_000']
+label_layer = viewer.layers['nuclei_cp_masks_000']
 rp_table = regionprops_table(
-    label_im.data,
+    label_layer.data,
     properties=('area', 'perimeter')
 )
 ```

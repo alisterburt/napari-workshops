@@ -66,6 +66,8 @@ viewer.add_image(nuclei);
 
 In the cell below, add the spots image to the viewer as was done above for the nuclei image. After loading the data, inspect it in the viewer and adjust the layer settings to your liking (e.g., contrast limits, colormap). You can pan/zoom around the image by click/dragging to pan and scrolling with your mousewheel or trackpad to zoom.
 
+**Hint**: you can adjust a layer's opacity to see the change how much you see of the layers that are "under" it.
+
 ```{code-cell} python
 # add the spots image to the viewer
 viewer.add_image(spots)
@@ -113,7 +115,7 @@ filtered_spots = gaussian_high_pass(spots, 2)
 
 # add the filtered image to the viewer
 # hint: set the opacity < 1 in order to see the layers underneath
-viewer.add_image(filtered_spots, opacity=0.6)
+viewer.add_image(filtered_spots, opacity=0.6, colormap='viridis')
 ```
 
 ```{code-cell} python
@@ -198,7 +200,7 @@ spot_coords, spot_sizes = detect_spots(
 )
 
 # add the detected spots to the viewer as a Points layer
-viewer.add_points(spot_coords, size=spot_sizes, symbol='ring')
+viewer.add_points(spot_coords, size=spot_sizes)
 ```
 
 ```{code-cell} python
