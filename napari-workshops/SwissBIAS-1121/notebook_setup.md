@@ -56,3 +56,5 @@ Jupyter Notebook will open in a browser window and you will see the following no
 - `part_2_spot_detection_tutorial_solution.ipynb`: this is the solution to the spot detection activity.
 
 All of the "part 2" notebooks cover the same activities, they just require you to fill in more or less of the solution. For your convenience, we have rendered the solutions to these notebooks in the following pages.
+
+![jupyter notebook](./resources/jupyter_notebook.png)
