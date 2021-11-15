@@ -386,12 +386,13 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">email</span> <span class="pre">[yourname&#64;example.com]</span></code>: this email will be listed as the contact information in the package metadata</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">github_username</span> <span class="pre">[githubuser]</span></code>: if you have a github username, you can enter it here</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">plugin_name</span> <span class="pre">[napari-foobar]</span></code>: enter the name you would like your plugin to be called. spaces are not allowed and are often replaced with <code class="docutils literal notranslate"><span class="pre">-</span></code> (e.g., <code class="docutils literal notranslate"><span class="pre">napari-spot-detector</span></code>).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Select</span> <span class="pre">github_repository_url:</span></code> this is used for plugin metadata and is not required now. If you don’t plan to upload it to your github, select 2.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">module_name</span> <span class="pre">[napari_foobar]</span></code>: this is the name of the module containing your plugin code. typically, this is the plugin name with the <code class="docutils literal notranslate"><span class="pre">-</span></code> replaced with <code class="docutils literal notranslate"><span class="pre">_</span></code> (e.g., <code class="docutils literal notranslate"><span class="pre">napari_spot_detector</span></code>).</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">short_description</span> <span class="pre">[A</span> <span class="pre">simple</span> <span class="pre">plugin</span> <span class="pre">to</span> <span class="pre">use</span> <span class="pre">with</span> <span class="pre">napari]</span></code>: give a one sentence description of your plugin. This will go into the readme.\</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">include_reader_plugin</span> <span class="pre">[y]</span></code>: answer<code class="docutils literal notranslate"><span class="pre">y</span></code> (for yes) if you would like a reader plugin. We do not need a reader plugin for this tutorial, so answer <code class="docutils literal notranslate"><span class="pre">n</span></code> for no.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">include_writer_plugin</span> <span class="pre">[y]</span></code>answer<code class="docutils literal notranslate"><span class="pre">y</span></code> (for yes) if you would like a writer plugin. We do not need a reader plugin for this tutorial, so answer <code class="docutils literal notranslate"><span class="pre">n</span></code> for no.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">include_dock_widget_plugin</span> <span class="pre">[y]</span></code>: answer<code class="docutils literal notranslate"><span class="pre">y</span></code> (for yes) if you would like a dock widget plugin. We do not need a reader plugin for this tutorial, so answer <code class="docutils literal notranslate"><span class="pre">n</span></code> for no.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">include_function_plugin</span> <span class="pre">[y]</span></code>: answer<code class="docutils literal notranslate"><span class="pre">y</span></code> (for yes) if you would like a reader plugin. We are implementing a function plugin for this tutorial, so answer <code class="docutils literal notranslate"><span class="pre">y</span></code> for yes.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">include_reader_plugin</span> <span class="pre">[y]</span></code>: answer <code class="docutils literal notranslate"><span class="pre">y</span></code> (for yes) if you would like a reader plugin. We do not need a reader plugin for this tutorial, so answer <code class="docutils literal notranslate"><span class="pre">n</span></code> for no.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">include_writer_plugin</span> <span class="pre">[y]</span></code>answer <code class="docutils literal notranslate"><span class="pre">y</span></code> (for yes) if you would like a writer plugin. We do not need a reader plugin for this tutorial, so answer <code class="docutils literal notranslate"><span class="pre">n</span></code> for no.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">include_dock_widget_plugin</span> <span class="pre">[y]</span></code>: answer <code class="docutils literal notranslate"><span class="pre">y</span></code> (for yes) if you would like a dock widget plugin. We do not need a reader plugin for this tutorial, so answer <code class="docutils literal notranslate"><span class="pre">n</span></code> for no.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">include_function_plugin</span> <span class="pre">[y]</span></code>: answer <code class="docutils literal notranslate"><span class="pre">y</span></code> (for yes) if you would like a function plugin. We are implementing a function plugin for this tutorial, <strong>so answer <code class="docutils literal notranslate"><span class="pre">y</span></code> for yes</strong>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">use_git_tags_for_versioning</span> <span class="pre">[n]</span></code>: we will not be covering setting plugin versions in this tutorial, so enter <code class="docutils literal notranslate"><span class="pre">n</span></code> for no.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Select</span> <span class="pre">docs_tool</span></code>: the repository can be set up to build documentation from your plugin using one of the popular frameworks. We will not be making documentation in this tutorial, so select option 3 (none).</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Select</span> <span class="pre">license</span></code>: select the license you would like to use for your plugin. The license sets the rules for how others can build upon and re-use your plugin code. For more information on typical open source licenses, <a class="reference external" href="https://choosealicense.com/">choosealicense.com</a> is a good primer. The default choice for is <a class="reference external" href="https://opensource.org/licenses/BSD-3-Clause">BSD-3</a>.</p></li>
@@ -404,12 +405,13 @@
 │      └── test_and_deploy.yml
 ├── LICENSE
 ├── MANIFEST.in
-├── napari_spot_detector
-│   ├── __init__.py
-│   ├── _function.py
-│   └── _tests
+├── src
+|   └──napari_spot_detector
 │       ├── __init__.py
-│       └── test_function.py
+│       ├── _function.py
+│       └── _tests
+│           ├── __init__.py
+│           └── test_function.py
 ├── README.md
 ├── requirements.txt
 ├── setup.cfg
@@ -429,12 +431,7 @@
 <h2>Implementing a function hookspec<a class="headerlink" href="#implementing-a-function-hookspec" title="Permalink to this headline">¶</a></h2>
 <p>In this step, we will implement our <code class="docutils literal notranslate"><span class="pre">detect_spots()</span></code> function in the function hookspec. First, we will add our spot detection function to the plugin package. Then, we will add the type annotations to the function to so that napari can infer the correct GUI elements to add to our plugin.</p>
 <ol>
-<li><p>To edit your plugin source code, open it in VSCode (an integrated development environment).</p>
-<ul class="simple">
-<li><p>Open the <a class="reference external" href="https://help.ubuntu.com/stable/ubuntu-help/gs-use-system-search.html.en">system search</a> by either clicking “Activities” in the upper left hand corner of the screen or pressing the “super key” (typically “command” on Mac or Windows key on Windows).</p></li>
-<li><p>Search for VSCode and click on it</p></li>
-</ul>
-</li>
+<li><p>To edit your plugin source code, open an integrated development environment (VSCode is a good, free option) or text editor.</p></li>
 <li><p>In VSCode, open the directory you created with <code class="docutils literal notranslate"><span class="pre">cookiecutter</span></code> in the section above.</p>
 <ul class="simple">
 <li><p>From the “File” menu, select “Open…”</p></li>
@@ -486,7 +483,12 @@
 </li>
 <li><p>Add type annotations to the function parameters (inputs). Napari (via <a class="reference external" href="https://napari.org/magicgui/">magicgui</a>) will infer the required GUI elements from the type annotations. We have to add annotations to both the parameters (i.e., inputs to the function) and the</p></li>
 <li><p>Annotate the Return type as <code class="docutils literal notranslate"><span class="pre">&quot;napari.types.LayerDataTuple&quot;</span></code>.</p></li>
-<li><p>Note that in the step above, we annotate the Return type as <code class="docutils literal notranslate"><span class="pre">&quot;napari.types.LayerDataTuple&quot;</span></code></p></li>
+<li><p>Add the required imports for the <code class="docutils literal notranslate"><span class="pre">scipy.ndimage</span></code> module and <code class="docutils literal notranslate"><span class="pre">scikit-image</span></code> <code class="docutils literal notranslate"><span class="pre">blob_log()</span></code> function to the top of the file.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">scipy</span> <span class="pre">import</span> <span class="pre">ndimage</span> <span class="pre">as</span> <span class="pre">ndi</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">skimage.feature</span> <span class="pre">import</span> <span class="pre">blob_log</span></code></p></li>
+</ul>
+</li>
 </ol>
 <div class="section" id="function-py-solution">
 <h3>_function.py solution<a class="headerlink" href="#function-py-solution" title="Permalink to this headline">¶</a></h3>
@@ -590,8 +592,7 @@
         <span class="n">points_coords</span><span class="p">,</span>
         <span class="p">{</span>
             <span class="s2">&quot;face_color&quot;</span><span class="p">:</span> <span class="s2">&quot;magenta&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="n">sizes</span><span class="p">,</span>
-            <span class="s2">&quot;symbol&quot;</span><span class="p">:</span> <span class="s1">&#39;ring&#39;</span>
+            <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="n">sizes</span>
         <span class="p">},</span>
         <span class="s2">&quot;Points&quot;</span>
     <span class="p">)</span>
@@ -617,7 +618,7 @@
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~/Documents/napari-spot-detector
 </pre></div>
 </div>
-<p>Then, we install the plugin with pip. pip is the package installer for python (see <a class="reference external" href="https://pip.pypa.io/en/stable/">the documentation</a> for more information). We will use the <code class="docutils literal notranslate"><span class="pre">-e</span></code> option to install in “editable” mode. This means that when we in make a change to our</p>
+<p>Then, we install the plugin with pip. pip is the package installer for python (see <a class="reference external" href="https://pip.pypa.io/en/stable/">the documentation</a> for more information). We will use the <code class="docutils literal notranslate"><span class="pre">-e</span></code> option to install in “editable” mode. This means that when we in make a change to our source code, it will be update the installed package the next time it is imported.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install -e .
 </pre></div>
 </div>
@@ -625,7 +626,7 @@
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>napari
 </pre></div>
 </div>
-<p>Once napari is open, you can open your plugin from the “Plugin” menu. You can test your plugin by locating the spots image from the spot detection tutorial in the File browser (<code class="docutils literal notranslate"><span class="pre">~/Documents/napari-spot-detection-tutorial/data/spots_cropped.tif</span></code>), dragging the image into the napari viewer, and try running the plugin.</p>
+<p>Once napari is open, you can open your plugin from the “Plugin” menu. You can test your plugin by locating the spots image from the tutorial notebooks folder (<code class="docutils literal notranslate"><span class="pre">napari_plugin_intro_workshop</span></code>) we downloaded at the beginning of this tutorial in the File browser (<code class="docutils literal notranslate"><span class="pre">&lt;path</span> <span class="pre">to</span> <span class="pre">notebook</span> <span class="pre">folder&gt;/data/spots_cropped.tif</span></code>), dragging the image into the napari viewer, and try running the plugin.</p>
 <p>Congratulations! You have made your first napari plugin!</p>
 </div>
 <div class="section" id="bonus-exercises">

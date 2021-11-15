@@ -429,6 +429,7 @@
 </div>
 </div>
 <p>In the cell below, add the spots image to the viewer as was done above for the nuclei image. After loading the data, inspect it in the viewer and adjust the layer settings to your liking (e.g., contrast limits, colormap). You can pan/zoom around the image by click/dragging to pan and scrolling with your mousewheel or trackpad to zoom.</p>
+<p><strong>Hint</strong>: you can adjust a layer’s opacity to see the change how much you see of the layers that are “under” it.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># add the spots image to the viewer</span>
@@ -485,7 +486,7 @@
 
 <span class="c1"># add the filtered image to the viewer</span>
 <span class="c1"># hint: set the opacity &lt; 1 in order to see the layers underneath</span>
-<span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="n">filtered_spots</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="n">filtered_spots</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -578,7 +579,7 @@
 <span class="p">)</span>
 
 <span class="c1"># add the detected spots to the viewer as a Points layer</span>
-<span class="n">viewer</span><span class="o">.</span><span class="n">add_points</span><span class="p">(</span><span class="n">spot_coords</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">spot_sizes</span><span class="p">,</span> <span class="n">symbol</span><span class="o">=</span><span class="s1">&#39;ring&#39;</span><span class="p">)</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">add_points</span><span class="p">(</span><span class="n">spot_coords</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">spot_sizes</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
