@@ -6,7 +6,7 @@ During this tutorial, we will be working through a set of notebooks. On this pag
 ### Downloading .zip
 You can download the notebooks as a .zip file. To do so, please do the following:
 
-1. Navigate your web browser to https://github.com/kevinyamauchi/napari_plugin_intro_workshop
+1. Navigate your web browser to https://github.com/kevinyamauchi/napari-intro-tutorial-scipy2022
 2. Click the green "Code" button to open the download menu and then "Download ZIP"
     ![download code](./resources/download_code.png)
 3. Choose the location you would like to download the .zip.
@@ -24,12 +24,12 @@ cd ~/Documents
 and then clone the repository. This will download all of the files necessary for this tutorial.
 
 ```bash
-git clone https://github.com/kevinyamauchi/napari_plugin_intro_workshop.git
+git clone https://github.com/kevinyamauchi/napari-intro-tutorial-scipy2022.git
 ```
 
 ## Launch jupyter notebook
 
-Open your terminal and navigate to the `notebooks` subdirectory of the `napari_plugin_intro_workshop` directory you just downloaded.
+Open your terminal and navigate to the `notebooks` subdirectory of the `napari-intro-tutorial-scipy2022` directory you just downloaded.
 
 ```
 cd <path to napari_plugin_intro_workshop>/notebooks
