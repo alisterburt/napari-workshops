@@ -12,7 +12,7 @@ The aim of this workshop is to provide an introduction to bioimage analysis in P
 - make use of the [napari plugin ecosystem](https://www.napari-hub.org/)
 - make simple plugins using the napari hookspecs
 
-## Tutorial exercises
+## Tutorial instructions
 
 1. Install napari and dependencies. Instructions [here](./installation.md).
 2. Download the notebooks and launch jupyter notebook. Instructions [here](./notebook_setup.md).
