@@ -1,4 +1,4 @@
-# python setup & napari installation
+# python setup & napari installation (SciPy 2022)
 
 **Note:** If you have any issues with installation, please feel free to write us a message on the [napari zulip](https://napari.zulipchat.com/#narrow/stream/212875-general) and we will try to help you get unstuck.
 
@@ -82,7 +82,7 @@ In this tutorial, we will install python via miniforge, a distribution of anacon
 	```bash
 	conda install -c conda-forge notebook
 	pip install cookiecutter magicgui "napari[all]"
-	pip install cellpose-napari
+	pip install stardist-napari
 	```
 
 5. If you are on a Mac, please install this one additional dependency.
