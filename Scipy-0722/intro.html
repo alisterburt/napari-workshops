@@ -1,0 +1,458 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scipy: interactive image analysis with napari (07/22) &#8212; napari workshops</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="python setup &amp; napari installation (SciPy 2022)" href="scipy_installation.html" />
+    <link rel="prev" title="Creating a napari plugin" href="../SwissBIAS-1121/make_a_simple_plugin.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo.ico" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">napari workshops</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../home.html">
+   Home
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../NDCN-0821/intro.html">
+   NDCN Workshop 08/21
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../NDCN-0821/installation.html">
+     python setup &amp; napari installation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../notebooks/intro_bioimage_visualization.html">
+     notebook: bioimage visualization in python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../notebooks/manual_annotation.html">
+     notebook: manual annotation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../notebooks/segmentation_with_cellpose.html">
+     notebook: segmenting nuclei with the cellpose napari plugin
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../ZIDAS-0921/intro.html">
+   ZIDAS napari intro 09/21
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ZIDAS-0921/installation.html">
+     python setup &amp; napari installation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../notebooks/viewing_images.html">
+     notebook: bioimage visualization in python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../notebooks/using_plugins.html">
+     notebook: segmenting nuclei with the cellpose napari plugin
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../notebooks/custom_colormaps.html">
+     notebook: using custom colormaps in napari
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../SwissBIAS-1121/intro.html">
+   SwissBIAS napari intro and plugins 11/21
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../SwissBIAS-1121/installation.html">
+     python setup &amp; napari installation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../SwissBIAS-1121/notebook_setup.html">
+     Downloading and launching the notebooks
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../notebooks/viewer_intro.html">
+     notebook: bioimage visualization in python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../notebooks/segmenting_and_measuring_nuclei.html">
+     notebook: segmenting nuclei with the cellpose napari plugin
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../notebooks/spot_detection.html">
+     notebook: interactive analysis with jupyter notebook, napari, scikit-image, and scipy
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../SwissBIAS-1121/make_a_simple_plugin.html">
+     Creating a napari plugin
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="current reference internal" href="#">
+   Scipy: interactive image analysis with napari (07/22)
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="scipy_installation.html">
+     python setup &amp; napari installation (SciPy 2022)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="notebook_setup.html">
+     Downloading and launching the notebooks
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../notebooks/viewer_intro_scipy.html">
+     notebook: bioimage visualization in python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../notebooks/segmenting_and_measuring_nuclei_stardist.html">
+     notebook: segmenting nuclei with the cellpose napari plugin
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../notebooks/spot_detection_scipy.html">
+     notebook: interactive analysis with jupyter notebook, napari, scikit-image, and scipy
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="make_a_simple_plugin.html">
+     Creating a napari plugin
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/Scipy-0722/intro.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/alisterburt/napari-workshops"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#instructors">
+   Instructors
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#goals">
+   Goals
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tutorial-instructions">
+   Tutorial instructions
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="scipy-interactive-image-analysis-with-napari-07-22">
+<h1>Scipy: interactive image analysis with napari (07/22)<a class="headerlink" href="#scipy-interactive-image-analysis-with-napari-07-22" title="Permalink to this headline">¶</a></h1>
+<p>This workshop will take you through the basics of bioimage analysis in Python and <a class="reference external" href="https://www.napari.org">napari</a> and introduce you to the napari plugin engine. We will be performing some analysis on segmented nuclei using a combination of <code class="docutils literal notranslate"><span class="pre">napari</span></code>, <code class="docutils literal notranslate"><span class="pre">scikit-image</span></code>, <code class="docutils literal notranslate"><span class="pre">scipy</span></code>, and <code class="docutils literal notranslate"><span class="pre">cellpose</span></code>. Additionally, we will make a spot detection plugin.</p>
+<div class="section" id="instructors">
+<h2>Instructors<a class="headerlink" href="#instructors" title="Permalink to this headline">¶</a></h2>
+<p>The instructors for this session are Guillaume Witz (<a class="reference external" href="https://twitter.com/guiwitz">&#64;guiwitz</a>), Kevin Yamauchi (<a class="reference external" href="https://twitter.com/ky396">&#64;ky396</a>), Lorenzo Gaifas (<a class="reference external" href="https://twitter.com/brisvag">&#64;brisvag</a>).</p>
+</div>
+<div class="section" id="goals">
+<h2>Goals<a class="headerlink" href="#goals" title="Permalink to this headline">¶</a></h2>
+<p>The aim of this workshop is to provide an introduction to bioimage analysis in Python and <code class="docutils literal notranslate"><span class="pre">napari</span></code>. By the end of the workshop you should be able to</p>
+<ul class="simple">
+<li><p>use napari as an image viewer</p></li>
+<li><p>perform interactive analysis with napari in a <a class="reference external" href="https://jupyter.org/">jupyter notebook</a></p></li>
+<li><p>make use of the <a class="reference external" href="https://www.napari-hub.org/">napari plugin ecosystem</a></p></li>
+<li><p>make simple plugins using the napari hookspecs</p></li>
+</ul>
+</div>
+<div class="section" id="tutorial-instructions">
+<h2>Tutorial instructions<a class="headerlink" href="#tutorial-instructions" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p>Install napari and dependencies. Instructions <a class="reference internal" href="scipy_installation.html"><span class="doc std std-doc">here</span></a>.</p></li>
+<li><p>Download the notebooks and launch jupyter notebook. Instructions <a class="reference internal" href="notebook_setup.html"><span class="doc std std-doc">here</span></a>.</p></li>
+<li><p>Do the introduction to viewing images in napari (<code class="docutils literal notranslate"><span class="pre">part_0_viewer_intro.ipynb</span></code>).</p></li>
+<li><p>Segment and measure nuclei using the cellpose plugin (<code class="docutils literal notranslate"><span class="pre">part_1_segmenting_and_measuring_nuclei.ipynb</span></code>).</p></li>
+<li><p>Perform spot detection using your own spot detection function. There are 3 versions of this tutorial (see description below). They all cover the same content, they just require more or less coding depending on experience level.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">part_2_spot_detection_tutorial_beginner.ipynb</span></code>: this is the activity notebook for people new to image processing with python</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">part_2_spot_detection_tutorial_advanced.ipynb</span></code>: this is the activity notebook for people with experience performing image processing with python</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">part_2_spot_detection_tutorial_solution.ipynb</span></code>: this is the solution to the activity.</p></li>
+</ul>
+</li>
+<li><p>Turn your spot detection function into a napari plugin. Instructions <a class="reference internal" href="make_a_simple_plugin.html"><span class="doc std std-doc">here</span></a>.</p></li>
+</ol>
+</div>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./Scipy-0722"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="../SwissBIAS-1121/make_a_simple_plugin.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Creating a napari plugin</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="scipy_installation.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">python setup &amp; napari installation (SciPy 2022)</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By napari core developers<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>
