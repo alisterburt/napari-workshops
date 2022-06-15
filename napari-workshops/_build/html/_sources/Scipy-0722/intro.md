@@ -3,7 +3,7 @@
 This workshop will take you through the basics of bioimage analysis in Python and [napari](https://www.napari.org) and introduce you to the napari plugin engine. We will be performing some analysis on segmented nuclei using a combination of `napari`, `scikit-image`, `scipy`, and `cellpose`. Additionally, we will make a spot detection plugin.
 
 ## Instructors
-The instructors for this session are Guillaume Witz ([@guiwitz](https://twitter.com/guiwitz)), Kevin Yamauchi ([@ky396](https://twitter.com/ky396)), Lorenzo Gaifas ([@brisvag](https://twitter.com/brisvag)).
+The instructors for this session are  Draga Doncila Pop ([DragaDoncila](https://github.com/DragaDoncila)) and Kevin Yamauchi ([@ky396](https://twitter.com/ky396)).
 
 ## Goals
 The aim of this workshop is to provide an introduction to bioimage analysis in Python and `napari`. By the end of the workshop you should be able to
