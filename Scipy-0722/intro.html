@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Scipy: interactive image analysis with napari (07/22) &#8212; napari workshops</title>
+    <title>Scipy: interactive image analysis with napari (July 2022) &#8212; napari workshops</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -205,7 +205,7 @@
  </li>
  <li class="toctree-l1 current active has-children">
   <a class="current reference internal" href="#">
-   Scipy: interactive image analysis with napari (07/22)
+   Scipy: interactive image analysis with napari (July 2022)
   </a>
   <input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
   <label for="toctree-checkbox-4">
@@ -340,6 +340,11 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#pre-tutorial-setup">
+   Pre-tutorial setup
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#tutorial-instructions">
    Tutorial instructions
   </a>
@@ -355,8 +360,8 @@
         
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="scipy-interactive-image-analysis-with-napari-07-22">
-<h1>Scipy: interactive image analysis with napari (07/22)<a class="headerlink" href="#scipy-interactive-image-analysis-with-napari-07-22" title="Permalink to this headline">¶</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="scipy-interactive-image-analysis-with-napari-july-2022">
+<h1>Scipy: interactive image analysis with napari (July 2022)<a class="headerlink" href="#scipy-interactive-image-analysis-with-napari-july-2022" title="Permalink to this headline">¶</a></h1>
 <p>This workshop will take you through the basics of bioimage analysis in Python and <a class="reference external" href="https://www.napari.org">napari</a> and introduce you to the napari plugin engine. We will be performing some analysis on segmented nuclei using a combination of <code class="docutils literal notranslate"><span class="pre">napari</span></code>, <code class="docutils literal notranslate"><span class="pre">scikit-image</span></code>, <code class="docutils literal notranslate"><span class="pre">scipy</span></code>, and <code class="docutils literal notranslate"><span class="pre">cellpose</span></code>. Additionally, we will make a spot detection plugin.</p>
 <div class="section" id="instructors">
 <h2>Instructors<a class="headerlink" href="#instructors" title="Permalink to this headline">¶</a></h2>
@@ -372,11 +377,17 @@
 <li><p>make simple plugins using the napari hookspecs</p></li>
 </ul>
 </div>
-<div class="section" id="tutorial-instructions">
-<h2>Tutorial instructions<a class="headerlink" href="#tutorial-instructions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="pre-tutorial-setup">
+<h2>Pre-tutorial setup<a class="headerlink" href="#pre-tutorial-setup" title="Permalink to this headline">¶</a></h2>
+<p>So that we can best utilize our time together, please do the following before arriving at the tutorial:</p>
 <ol class="simple">
 <li><p>Install napari and dependencies. Instructions <a class="reference internal" href="scipy_installation.html"><span class="doc std std-doc">here</span></a>.</p></li>
 <li><p>Download the notebooks and launch jupyter notebook. Instructions <a class="reference internal" href="notebook_setup.html"><span class="doc std std-doc">here</span></a>.</p></li>
+</ol>
+</div>
+<div class="section" id="tutorial-instructions">
+<h2>Tutorial instructions<a class="headerlink" href="#tutorial-instructions" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
 <li><p>Do the introduction to viewing images in napari (<code class="docutils literal notranslate"><span class="pre">part_0_viewer_intro.ipynb</span></code>).</p></li>
 <li><p>Segment and measure nuclei using the cellpose plugin (<code class="docutils literal notranslate"><span class="pre">part_1_segmenting_and_measuring_nuclei.ipynb</span></code>).</p></li>
 <li><p>Perform spot detection using your own spot detection function. There are 3 versions of this tutorial (see description below). They all cover the same content, they just require more or less coding depending on experience level.</p>

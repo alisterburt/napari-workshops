@@ -204,7 +204,7 @@
  </li>
  <li class="toctree-l1 current active has-children">
   <a class="reference internal" href="intro.html">
-   Scipy: interactive image analysis with napari (07/22)
+   Scipy: interactive image analysis with napari (July 2022)
   </a>
   <input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
   <label for="toctree-checkbox-4">
@@ -334,18 +334,18 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#choosing-a-hook-specification">
-   Choosing a hook specification
+  <a class="reference internal nav-link" href="#choosing-a-contribution">
+   Choosing a contribution
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#using-the-cookiecutter-template-to-create-your-plugin-repository">
-   Using the cookiecutter template to create your plugin repository
+  <a class="reference internal nav-link" href="#using-the-cookiecutter-template-to-create-your-plugin-directory">
+   Using the cookiecutter template to create your plugin directory
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#implementing-a-function-hookspec">
-   Implementing a function hookspec
+  <a class="reference internal nav-link" href="#implementing-a-function-gui">
+   Implementing a function GUI
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
@@ -387,29 +387,31 @@
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
 <p>In this tutorial, we will make a napari analysis plugin from the <code class="docutils literal notranslate"><span class="pre">detect_spots()</span></code> function we wrote in the first part of this practical session. The primary steps in making a napari plugin are as follows:</p>
 <ol class="simple">
-<li><p>choose which hook specification(s) your plugin requires</p></li>
+<li><p>choose which manifest contribution(s) your plugin requires</p></li>
 <li><p>create your repository using the napari cookiecutter template</p></li>
-<li><p>implement the hookspec(s)</p></li>
+<li><p>implement your contributions</p></li>
 <li><p>share your plugin with the community</p></li>
 </ol>
-<p>In the following sections, we will work through steps (1) - (3) and we discussed the process for (4) during the lecture.</p>
+<p>In the following sections, we will work through steps (1) - (3). For step (4) you can refer to the <a class="reference external" href="https://www.youtube.com/watch?v=NL-VywidzXE">in depth plugin tutorial</a>,
+or <a class="reference external" href="https://napari.org/plugins/test_deploy.html#preparing-for-release">the instructions on napari.org</a>.
+You can also use <a class="reference external" href="https://docs.google.com/presentation/d/1-9ObrjrbjtrsO3kjEZELpd3QFDM0ct-oa3L-EIdO77I/edit?usp=sharing">the lecture slides</a> as reference material if you’d like.</p>
 <p><img alt="plugin example" src="../_images/plugin-011.png" /></p>
 </div>
-<div class="section" id="choosing-a-hook-specification">
-<h2>Choosing a hook specification<a class="headerlink" href="#choosing-a-hook-specification" title="Permalink to this headline">¶</a></h2>
-<p>A hook specification or “hookspec” is a definition for a function that napari uses for a specific type of plugin. In other words, the hook specification defines what napari provides to napari (e.g., data and parameters) and what the plugin returns to napari. napari is then able to use the functions meeting the hook specification to carry out the plugin tasks. The current categories of napari hook specifications are described below. Please see the <a class="reference external" href="https://napari.org/plugins/stable/hook_specifications.html#hook-specifications-reference">hook specification reference</a> for more details. Many plugins will implement multiple hookspecs to provide all of the required functionality.</p>
+<div class="section" id="choosing-a-contribution">
+<h2>Choosing a contribution<a class="headerlink" href="#choosing-a-contribution" title="Permalink to this headline">¶</a></h2>
+<p>A contribution is a construct in <code class="docutils literal notranslate"><span class="pre">napari.yaml</span></code> (the manifest file), that napari uses for each specific type of plugin. Each contribution conforms to a function signature, i.e. the function linked to the contribution defines what napari provides to the plugin (e.g., data and parameters) and what the plugin returns to napari. napari is then able to use the functions pointed to in <code class="docutils literal notranslate"><span class="pre">napari.yaml</span></code> to carry out the plugin tasks. The current categories of contributions are described below. Please see the <a class="reference external" href="https://napari.org/plugins/contributions.html">contribution reference</a> and <a class="reference external" href="https://napari.org/plugins/guides.html">contribution guide</a> for more details. Many plugins will declare multiple contributions to provide all of the desired functionality.</p>
 <ul class="simple">
 <li><p><strong>reader</strong>: allows loading of specified data formats into napari layers</p></li>
 <li><p><strong>writer</strong>: this allows layer data to be written to disk in specified formats</p></li>
 <li><p><strong>sample data</strong>: allows developers to provide users with sample data with their plugin.</p></li>
-<li><p><strong>dock widget</strong>: allows custom Qt widgets (GUIs) to be added to napari</p></li>
-<li><p><strong>function</strong>: the developer provides a function and napari automatically generates the GUI to both set the inputs parameters for the function and run the function.</p></li>
+<li><p><strong>widget</strong>: allows custom Qt widgets (GUIs) to be added to napari, either from a <code class="docutils literal notranslate"><span class="pre">magic_factory</span></code> widget, a plain function, or a subclass of QWidget</p></li>
+<li><p><strong>theme</strong>: allows customization of the entire napari viewer appearance e.g. light theme or dark theme</p></li>
 </ul>
-<p>In this tutorial, we will create a spot detection plugin by implementing the function hookspec with the spot detection function (<code class="docutils literal notranslate"><span class="pre">detect_spots()</span></code>) we created in the first part of this practical session.</p>
+<p>In this tutorial, we will create a spot detection plugin by implementing a widget contribution with the spot detection function (<code class="docutils literal notranslate"><span class="pre">detect_spots()</span></code>) we created in the first part of this practical session.</p>
 </div>
-<div class="section" id="using-the-cookiecutter-template-to-create-your-plugin-repository">
-<h2>Using the cookiecutter template to create your plugin repository<a class="headerlink" href="#using-the-cookiecutter-template-to-create-your-plugin-repository" title="Permalink to this headline">¶</a></h2>
-<p>To make creating the creating plugins easier, we provide a template that automatically builds most of the infrastructure for your plugin, so you can focus on implmenting the details unique to your plugin. The template is implemented using a command line utility called <a class="reference external" href="https://github.com/cookiecutter/cookiecutter"><code class="docutils literal notranslate"><span class="pre">cookiecutter</span></code></a>. In the following steps, you will build your plugin directory using the cookiecutter template.</p>
+<div class="section" id="using-the-cookiecutter-template-to-create-your-plugin-directory">
+<h2>Using the cookiecutter template to create your plugin directory<a class="headerlink" href="#using-the-cookiecutter-template-to-create-your-plugin-directory" title="Permalink to this headline">¶</a></h2>
+<p>To make creating plugins easier, we provide a template that automatically builds most of the infrastructure for your plugin, so you can focus on implementing the details unique to your plugin. The template is provided using a command line utility called <a class="reference external" href="https://github.com/cookiecutter/cookiecutter"><code class="docutils literal notranslate"><span class="pre">cookiecutter</span></code></a>. In the following steps, you will build your plugin directory using the cookiecutter template.</p>
 <p>First, open your terminal and navigate to your Documents folder.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~/Documents
 </pre></div>
@@ -418,7 +420,7 @@
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda activate napari-tutorial
 </pre></div>
 </div>
-<p>In this next step, we will use <code class="docutils literal notranslate"><span class="pre">cookiecutter</span></code> to create a repository for our plugin from the template. <code class="docutils literal notranslate"><span class="pre">cookiecutter</span></code> will ask a series of questions that that will customize the repository for your plugin. Once completed, the repository will be created in your current directory.</p>
+<p>In this next step, we will use <code class="docutils literal notranslate"><span class="pre">cookiecutter</span></code> to create a directory for our plugin from the template. <code class="docutils literal notranslate"><span class="pre">cookiecutter</span></code> will ask a series of questions that that will customize the directory for your plugin. Once completed, a new directory will be created in your current directory. It will come pre-initialised with a git repository.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cookiecutter https://github.com/napari/cookiecutter-napari-plugin
 </pre></div>
 </div>
@@ -426,52 +428,56 @@
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">full_name</span> <span class="pre">[Napari</span> <span class="pre">Developer]</span></code>: enter your name here. Names entered here will be listed as the authors of the plugin in the package metadata.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">email</span> <span class="pre">[yourname&#64;example.com]</span></code>: this email will be listed as the contact information in the package metadata</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">github_username</span> <span class="pre">[githubuser]</span></code>: if you have a github username, you can enter it here</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">plugin_name</span> <span class="pre">[napari-foobar]</span></code>: enter the name you would like your plugin to be called. spaces are not allowed and are often replaced with <code class="docutils literal notranslate"><span class="pre">-</span></code> (e.g., <code class="docutils literal notranslate"><span class="pre">napari-spot-detector</span></code>).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">github_username_or_organization</span> <span class="pre">[githubuser]</span></code>: if you have a github username, you can enter it here. It will be used to generate a GitHub URL for you after you enter a plugin name.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">plugin_name</span> <span class="pre">[napari-foobar]</span></code>: enter the name you would like your plugin to be called. spaces are not allowed and are often replaced with <code class="docutils literal notranslate"><span class="pre">-</span></code> (e.g., <code class="docutils literal notranslate"><span class="pre">napari-spot-detector</span></code>). This will be your PyPI package name (if you choose to deploy your plugin).</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Select</span> <span class="pre">github_repository_url:</span></code> this is used for plugin metadata and is not required now. If you don’t plan to upload it to your github, select 2.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">module_name</span> <span class="pre">[napari_foobar]</span></code>: this is the name of the module containing your plugin code. typically, this is the plugin name with the <code class="docutils literal notranslate"><span class="pre">-</span></code> replaced with <code class="docutils literal notranslate"><span class="pre">_</span></code> (e.g., <code class="docutils literal notranslate"><span class="pre">napari_spot_detector</span></code>).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">module_name</span> <span class="pre">[napari_foobar]</span></code>: this is the name of the module containing your plugin code. Typically, this is the plugin name with the <code class="docutils literal notranslate"><span class="pre">-</span></code> replaced with <code class="docutils literal notranslate"><span class="pre">_</span></code> (e.g., <code class="docutils literal notranslate"><span class="pre">napari_spot_detector</span></code>).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">display_name</span> <span class="pre">[napari</span> <span class="pre">FooBar]</span></code>: this name will show up in the napari viewer and on the napari hub if you release your plugin. You should pick something human readable and ideally indicative of what your plugin does. There are no restrictions on the symbols in this name.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">short_description</span> <span class="pre">[A</span> <span class="pre">simple</span> <span class="pre">plugin</span> <span class="pre">to</span> <span class="pre">use</span> <span class="pre">with</span> <span class="pre">napari]</span></code>: give a one sentence description of your plugin. This will go into the readme.\</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">include_reader_plugin</span> <span class="pre">[y]</span></code>: answer <code class="docutils literal notranslate"><span class="pre">y</span></code> (for yes) if you would like a reader plugin. We do not need a reader plugin for this tutorial, so answer <code class="docutils literal notranslate"><span class="pre">n</span></code> for no.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">include_writer_plugin</span> <span class="pre">[y]</span></code>answer <code class="docutils literal notranslate"><span class="pre">y</span></code> (for yes) if you would like a writer plugin. We do not need a reader plugin for this tutorial, so answer <code class="docutils literal notranslate"><span class="pre">n</span></code> for no.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">include_dock_widget_plugin</span> <span class="pre">[y]</span></code>: answer <code class="docutils literal notranslate"><span class="pre">y</span></code> (for yes) if you would like a dock widget plugin. We do not need a reader plugin for this tutorial, so answer <code class="docutils literal notranslate"><span class="pre">n</span></code> for no.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">include_function_plugin</span> <span class="pre">[y]</span></code>: answer <code class="docutils literal notranslate"><span class="pre">y</span></code> (for yes) if you would like a function plugin. We are implementing a function plugin for this tutorial, <strong>so answer <code class="docutils literal notranslate"><span class="pre">y</span></code> for yes</strong>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">include_reader_plugin</span> <span class="pre">[y]</span></code>: answer <code class="docutils literal notranslate"><span class="pre">y</span></code> (for yes) if you would like a reader contribution. We do not need a reader contribution for this tutorial, so answer <code class="docutils literal notranslate"><span class="pre">n</span></code> for no.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">include_writer_plugin</span> <span class="pre">[y]</span></code>: answer <code class="docutils literal notranslate"><span class="pre">y</span></code> (for yes) if you would like a writer contribution. We do not need a writer contribution for this tutorial, so answer <code class="docutils literal notranslate"><span class="pre">n</span></code> for no.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">include_sample_data_plugin</span> <span class="pre">[y]</span></code>: answer <code class="docutils literal notranslate"><span class="pre">y</span></code> (for yes) if you would like a sample data contribution. We do not need a sample data contribution for this tutorial, so answer <code class="docutils literal notranslate"><span class="pre">n</span></code> for no.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">include_dock_widget_plugin</span> <span class="pre">[y]</span></code>: answer <code class="docutils literal notranslate"><span class="pre">y</span></code> (for yes) if you would like a widget contribution. We are implementing a widget contribution for this tutorial, <strong>so answer <code class="docutils literal notranslate"><span class="pre">y</span></code> for yes</strong>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">use_git_tags_for_versioning</span> <span class="pre">[n]</span></code>: we will not be covering setting plugin versions in this tutorial, so enter <code class="docutils literal notranslate"><span class="pre">n</span></code> for no.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Select</span> <span class="pre">docs_tool</span></code>: the repository can be set up to build documentation from your plugin using one of the popular frameworks. We will not be making documentation in this tutorial, so select option 3 (none).</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Select</span> <span class="pre">license</span></code>: select the license you would like to use for your plugin. The license sets the rules for how others can build upon and re-use your plugin code. For more information on typical open source licenses, <a class="reference external" href="https://choosealicense.com/">choosealicense.com</a> is a good primer. The default choice for is <a class="reference external" href="https://opensource.org/licenses/BSD-3-Clause">BSD-3</a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">install_precommit</span> <span class="pre">[n]</span></code>: we will not be covering precommit in this tutorial, so enter <code class="docutils literal notranslate"><span class="pre">n</span></code> for no.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Select</span> <span class="pre">license</span></code>: select the license you would like to use for your plugin. The license sets the rules for how others can build upon and re-use your plugin code. For more information on typical open source licenses, <a class="reference external" href="https://choosealicense.com/">choosealicense.com</a> is a good primer. The default choice is <a class="reference external" href="https://opensource.org/licenses/BSD-3-Clause">BSD-3</a>.</p></li>
 </ul>
-<p>After completing all of the questions, a new directory will be created containing your new napari plugin. You will be given instructions on how to initialize the git repository and upload it to github. By default, we will not be covering this aspect in the tutorial, but please feel free to ask the teaching team if you would like to give it a try. Your new plugin directory (assuming you called the plugin <code class="docutils literal notranslate"><span class="pre">napari-spot-detector</span></code> and the module <code class="docutils literal notranslate"><span class="pre">napari_spot_detector</span></code>) will be organized as follows</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>napari-spot-detector/
-│
+<p>After completing all of the questions, a directory will be created containing your new napari plugin. You will be given instructions on how to upload the initialized git repository to GitHub. By default, we will not be covering this aspect in the tutorial, but please feel free to ask the teaching team if you would like to give it a try. Your new plugin directory (assuming you called the plugin <code class="docutils literal notranslate"><span class="pre">napari-spot-detector</span></code> and the module <code class="docutils literal notranslate"><span class="pre">napari_spot_detector</span></code>) will be organized as follows (with some irrelevant files/folders omitted)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>napari-spot-detector
 ├── .github
-│   └── workflows
-│      └── test_and_deploy.yml
+│   └── workflows
+│       └── test_and_deploy.yml
 ├── LICENSE
 ├── MANIFEST.in
-├── src
-|   └──napari_spot_detector
-│       ├── __init__.py
-│       ├── _function.py
-│       └── _tests
-│           ├── __init__.py
-│           └── test_function.py
+├── .napari
+│   └── DESCRIPTION.md
+├── pyproject.toml
 ├── README.md
-├── requirements.txt
 ├── setup.cfg
-├── setup.py
+├── src
+│   └── napari_spot_detector
+│       ├── __init__.py
+│       ├── napari.yaml
+│       ├── _tests
+│       │   ├── __init__.py
+│       │   └── test_widget.py
+│       └── _widget.py
 └── tox.ini
 </pre></div>
 </div>
 <p>See below for explanations about some of the most notable files, but do not hesitate to reach out to the teaching team if you have questions about any of the other files.</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">.github/workflows/test_and_deploy.yml</span></code>: this is a <a class="reference external" href="https://github.com/features/actions">github actions</a> workflow that will automatically run the tests and upload your plugin to pypi (thus making it available through the build-in napari plugin browser). Please ask the teaching team if you would like to learn how to set up your github repository to support the workflow.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">setup.py</span></code> and <code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code>: these files allow you plugin to be installed by pip. the cookiecutter template has set everything up in these files, so you are good to go!</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">napari_spot_detector/_function.py</span></code>: This file implement the function hook specification. This is where you will add your <code class="docutils literal notranslate"><span class="pre">detect_spot()</span></code> function.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.github/workflows/test_and_deploy.yml</span></code>: this is a <a class="reference external" href="https://github.com/features/actions">github actions</a> workflow that will automatically run the tests and upload your plugin to pypi (thus making it available through the built-in napari plugin browser. Please ask the teaching team if you would like to learn how to set up your github repository to support the workflow.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> and <code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code>: these files allow your plugin to be built as a package and installed by pip. the cookiecutter template has set everything up in these files, so you are good to go!</p></li>
+<li><p>the <code class="docutils literal notranslate"><span class="pre">src/</span></code> folder contains all the python code for your plugin.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">src/napari_spot_detector/_widget.py</span></code>: This file contains example implementations for different widget contributions. This is where you will add your <code class="docutils literal notranslate"><span class="pre">detect_spot()</span></code> function.</p></li>
+<li><p>the <code class="docutils literal notranslate"><span class="pre">src/napari_spot_detector/napari.yaml</span></code> file declares commands and contributions for each example widget in the <code class="docutils literal notranslate"><span class="pre">_widget.py</span></code> file. Look at these carefully and match up which command &amp; contribution belong to what python code in the <code class="docutils literal notranslate"><span class="pre">_widget.py</span></code> file.</p></li>
 </ul>
-<p>You have now set up the directory for your new plugin! You can explore the directory and files with the file browser. In the next step, you will complete your plugin by adding your <code class="docutils literal notranslate"><span class="pre">detect_spots()</span></code> function to the <code class="docutils literal notranslate"><span class="pre">_function.py</span></code> file.</p>
+<p>You have now set up the directory for your new plugin! You can explore the directory and files with the file browser. In the next step, you will complete your plugin by adding your <code class="docutils literal notranslate"><span class="pre">detect_spots()</span></code> function to the <code class="docutils literal notranslate"><span class="pre">_widget.py</span></code> file.</p>
 </div>
-<div class="section" id="implementing-a-function-hookspec">
-<h2>Implementing a function hookspec<a class="headerlink" href="#implementing-a-function-hookspec" title="Permalink to this headline">¶</a></h2>
-<p>In this step, we will implement our <code class="docutils literal notranslate"><span class="pre">detect_spots()</span></code> function in the function hookspec. First, we will add our spot detection function to the plugin package. Then, we will add the type annotations to the function to so that napari can infer the correct GUI elements to add to our plugin.</p>
+<div class="section" id="implementing-a-function-gui">
+<h2>Implementing a function GUI<a class="headerlink" href="#implementing-a-function-gui" title="Permalink to this headline">¶</a></h2>
+<p>In this step, we will implement our <code class="docutils literal notranslate"><span class="pre">detect_spots()</span></code> function as a plugin contribution. First, we will add our spot detection function to the plugin package. Then, we will add the type annotations to the function to so that napari can infer the correct GUI elements to add to our plugin.</p>
 <ol>
 <li><p>To edit your plugin source code, open an integrated development environment (VSCode is a good, free option) or text editor.</p></li>
 <li><p>In VSCode, open the directory you created with <code class="docutils literal notranslate"><span class="pre">cookiecutter</span></code> in the section above.</p>
@@ -481,49 +487,92 @@
 </ul>
 </li>
 <li><p>You should now see your plugin directory in the “Explorer” pane in the left hand side of the window. You can double click on folders to expand them and files to open them in the editor.</p></li>
-<li><p>Open the <code class="docutils literal notranslate"><span class="pre">&lt;module_name&gt;/_function.py</span></code> file using VSCode by double clicking on it in the “Explorer” pane.</p></li>
+<li><p>Open the <code class="docutils literal notranslate"><span class="pre">&lt;module_name&gt;/_widget.py</span></code> file using VSCode by double clicking on it in the “Explorer” pane.</p></li>
 <li><p>You will see that it has already been populated with a few code blocks by cookiecutter.</p>
 <ul class="simple">
 <li><p>At the top, you see the imports. You can leave unchanged for now.</p></li>
 </ul>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
-<span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">napari_plugin_engine</span> <span class="kn">import</span> <span class="n">napari_hook_implementation</span>
+<span class="kn">from</span> <span class="nn">magicgui</span> <span class="kn">import</span> <span class="n">magic_factory</span>
+<span class="kn">from</span> <span class="nn">qtpy.QtWidgets</span> <span class="kn">import</span> <span class="n">QHBoxLayout</span><span class="p">,</span> <span class="n">QPushButton</span><span class="p">,</span> <span class="n">QWidget</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">napari</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><p>Next, you see the function hookspec. We will modify this to return our <code class="docutils literal notranslate"><span class="pre">detect_spots</span></code> function.</p></li>
+<li><p>Next, you see three different ways to add widgets to napari.</p>
+<ol class="simple">
+<li><p>The first subclasses <code class="docutils literal notranslate"><span class="pre">QWidget</span></code> directly. This option provides
+maximum flexibility, but means you have to take care of adding all the different GUI elements, laying them out, and hooking them
+up to the viewer.</p></li>
+</ol>
+</li>
 </ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># This is the actual plugin function, where we export our function</span>
-<span class="c1"># (The functions themselves are defined below)</span>
-<span class="nd">@napari_hook_implementation</span>
-<span class="k">def</span> <span class="nf">napari_experimental_provide_function</span><span class="p">():</span>
-    <span class="c1"># we can return a single function</span>
-    <span class="c1"># or a tuple of (function, magicgui_options)</span>
-    <span class="c1"># or a list of multiple functions with or without options, as shown here:</span>
-    <span class="k">return</span> <span class="p">[</span><span class="n">threshold</span><span class="p">,</span> <span class="n">image_arithmetic</span><span class="p">]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ExampleQWidget</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
+    <span class="c1"># your QWidget.__init__ can optionally request the napari viewer instance</span>
+    <span class="c1"># in one of two ways:</span>
+    <span class="c1"># 1. use a parameter called `napari_viewer`, as done here</span>
+    <span class="c1"># 2. use a type annotation of &#39;napari.viewer.Viewer&#39; for any parameter</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">napari_viewer</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span> <span class="o">=</span> <span class="n">napari_viewer</span>
+
+        <span class="n">btn</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s2">&quot;Click me!&quot;</span><span class="p">)</span>
+        <span class="n">btn</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_click</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">QHBoxLayout</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="p">()</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">btn</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_on_click</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;napari has&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">),</span> <span class="s2">&quot;layers&quot;</span><span class="p">)</span>    
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span> 2. The second option is to write a `magic_factory` decorated function. You might recognize this from our `intensify` widget in the lecture. With minimal extra work you can configure options for your GUI elements, such as min and max values for integers, or choices for dropdown boxes. See the [magicgui configuration docs](https://napari.org/magicgui/usage/configuration.html) for details on what you can configure in the decorator.
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@magic_factory</span>
+<span class="k">def</span> <span class="nf">example_magic_widget</span><span class="p">(</span><span class="n">img_layer</span><span class="p">:</span> <span class="s2">&quot;napari.layers.Image&quot;</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;you have selected </span><span class="si">{</span><span class="n">img_layer</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span> 3. Finally, you see the what looks like just a plain function. We don&#39;t need complex GUI interactions for our plugin, and we don&#39;t want to have to lay out the GUI ourselves, so we will modify this to incorporate our `detect_spots` function.
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Uses the `autogenerate: true` flag in the plugin manifest</span>
+<span class="c1"># to indicate it should be wrapped as a magicgui to autogenerate</span>
+<span class="c1"># a widget.</span>
+<span class="k">def</span> <span class="nf">example_function_widget</span><span class="p">(</span><span class="n">img_layer</span><span class="p">:</span> <span class="s2">&quot;napari.layers.Image&quot;</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;you have selected </span><span class="si">{</span><span class="n">img_layer</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><p>Finally, you see two example functions. We will replace these with our <code class="docutils literal notranslate"><span class="pre">detect_spots()</span></code> function.</p></li>
+<li><p>Find the <code class="docutils literal notranslate"><span class="pre">Command</span></code> ID in <code class="docutils literal notranslate"><span class="pre">napari.yaml</span></code> that points to <code class="docutils literal notranslate"><span class="pre">example_function_widget</span></code>, and then find that <code class="docutils literal notranslate"><span class="pre">Command</span></code> ID in the
+<code class="docutils literal notranslate"><span class="pre">Widgets</span></code> contribution section. Note that unlike the other <code class="docutils literal notranslate"><span class="pre">widget</span></code> contributions, this one includes <code class="docutils literal notranslate"><span class="pre">autogenerate:</span> <span class="pre">true</span></code>.</p></li>
+</ul>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nt">command</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">napari-spot-detector.make_func_widget</span>
+  <span class="nt">autogenerate</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+  <span class="nt">display_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Example Function Widget</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>This means our function doesn’t need to know anything about magicgui. If we provide type annotations to the parameters,
+the GUI widgets will be generated for us without even a decorator!</p></li>
+<li><p>Let’s edit <code class="docutils literal notranslate"><span class="pre">example_function_widget</span></code> to do our spot detection.</p></li>
 </ul>
 </li>
-<li><p>Delete the example functions. You can delete everything below the comment <code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">1.</span>&#160; <span class="pre">First</span> <span class="pre">example,...</span></code>.</p></li>
+<li><p>You can delete everything above <code class="docutils literal notranslate"><span class="pre">example_function_widget</span></code> in <code class="docutils literal notranslate"><span class="pre">_widget.py</span></code> if you want. If you do, make sure to delete the associated <code class="docutils literal notranslate"><span class="pre">Commands</span></code> and <code class="docutils literal notranslate"><span class="pre">Widget</span></code> contributions, and the imports in <code class="docutils literal notranslate"><span class="pre">napari_spot_detector/__init__.py</span></code>!</p></li>
 <li><p>Copy the <code class="docutils literal notranslate"><span class="pre">gaussian_high_pass()</span></code> and <code class="docutils literal notranslate"><span class="pre">detect_spots()</span></code> functions from your notebook from the first part of the tutorial and paste it where the example functions were (the ones you deleted in the previous step).</p></li>
-<li><p>Next, we need to modify <code class="docutils literal notranslate"><span class="pre">detect_spots()</span></code> to return the necessary layer data so that napari can create a new Points layer with our detected spots. If <code class="docutils literal notranslate"><span class="pre">detect_spots()</span></code> returns a <code class="docutils literal notranslate"><span class="pre">LayerDataTuple</span></code>, napari will add a new layer to the viewer using the data in the <code class="docutils literal notranslate"><span class="pre">LayerDataTuple</span></code>. For more information on the <code class="docutils literal notranslate"><span class="pre">LayerDataTuple</span></code> type, please see the lecture slides or <a class="reference external" href="https://napari.org/guides/stable/magicgui.html#returning-napari-types-layerdatatuple">the docs</a>.</p>
+<li><p>Next, we need to modify <code class="docutils literal notranslate"><span class="pre">detect_spots()</span></code> to return the necessary layer data so that napari can create a new Points layer with our detected spots. If <code class="docutils literal notranslate"><span class="pre">detect_spots()</span></code> returns a <code class="docutils literal notranslate"><span class="pre">LayerDataTuple</span></code>, napari will add a new layer to the viewer using the data in the <code class="docutils literal notranslate"><span class="pre">LayerDataTuple</span></code>. For more information on the <code class="docutils literal notranslate"><span class="pre">LayerDataTuple</span></code> type, please see <a class="reference external" href="https://napari.org/plugins/guides.html#the-layerdata-tuple">the docs</a>.</p>
 <ul class="simple">
-<li><p>The layer data tuple should be: <code class="docutils literal notranslate"><span class="pre">(layer_data,</span> <span class="pre">layer_options,</span> <span class="pre">layer_type)</span></code></p></li>
+<li><p>The layer data tuple should be: <code class="docutils literal notranslate"><span class="pre">(layer_data,</span> <span class="pre">layer_metadata,</span> <span class="pre">layer_type)</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">layer_data</span></code>: the data to be displayed in the new layer (i.e., the points coordinates)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">layer_options</span></code>: the display options for the layer stored as a dictionary. Some options to consider: <code class="docutils literal notranslate"><span class="pre">symbol</span></code>, <code class="docutils literal notranslate"><span class="pre">size</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">layer_metadata</span></code>: the display options for the layer stored as a dictionary. Some options to consider: <code class="docutils literal notranslate"><span class="pre">symbol</span></code>, <code class="docutils literal notranslate"><span class="pre">size</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">layer_type</span></code>: the name of the layer type as a string (i.e., <code class="docutils literal notranslate"><span class="pre">'Points'</span></code>)</p></li>
 </ul>
 </li>
-<li><p>Add type annotations to the function parameters (inputs). Napari (via <a class="reference external" href="https://napari.org/magicgui/">magicgui</a>) will infer the required GUI elements from the type annotations. We have to add annotations to both the parameters (i.e., inputs to the function) and the</p></li>
+<li><p>Add type annotations to the function parameters (inputs). Napari (via <a class="reference external" href="https://napari.org/magicgui/">magicgui</a>) will infer the required GUI elements from the type annotations. We have to add annotations to both the parameters (i.e., inputs to the function) and the return type.</p></li>
 <li><p>Annotate the Return type as <code class="docutils literal notranslate"><span class="pre">&quot;napari.types.LayerDataTuple&quot;</span></code>.</p></li>
 <li><p>Add the required imports for the <code class="docutils literal notranslate"><span class="pre">scipy.ndimage</span></code> module and <code class="docutils literal notranslate"><span class="pre">scikit-image</span></code> <code class="docutils literal notranslate"><span class="pre">blob_log()</span></code> function to the top of the file.</p>
 <ul class="simple">
@@ -534,34 +583,17 @@
 </ol>
 <div class="section" id="function-py-solution">
 <h3>_function.py solution<a class="headerlink" href="#function-py-solution" title="Permalink to this headline">¶</a></h3>
-<p>See below for an example implementation of the _function.py file.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">This module is an example of a barebones function plugin for napari</span>
-
-<span class="sd">It implements the ``napari_experimental_provide_function`` hook specification.</span>
-<span class="sd">see: https://napari.org/docs/dev/plugins/hook_specifications.html</span>
-
-<span class="sd">&quot;&quot;&quot;</span>
+<p>See below for an example implementation of the <code class="docutils literal notranslate"><span class="pre">_widget.py</span></code> file, and the associated changes to <code class="docutils literal notranslate"><span class="pre">napari.yaml</span></code></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># _widget.py</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">napari_plugin_engine</span> <span class="kn">import</span> <span class="n">napari_hook_implementation</span>
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">ndimage</span> <span class="k">as</span> <span class="n">ndi</span>
 <span class="kn">from</span> <span class="nn">skimage.feature</span> <span class="kn">import</span> <span class="n">blob_log</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">napari</span>
-
-
-<span class="c1"># This is the actual plugin function, where we export our function</span>
-<span class="c1"># (The functions themselves are defined below)</span>
-<span class="nd">@napari_hook_implementation</span>
-<span class="k">def</span> <span class="nf">napari_experimental_provide_function</span><span class="p">():</span>
-    <span class="c1"># we can return a single function</span>
-    <span class="c1"># or a tuple of (function, magicgui_options)</span>
-    <span class="c1"># or a list of multiple functions with or without options, as shown here:</span>
-    <span class="k">return</span> <span class="n">detect_spots</span>
 
 
 <span class="k">def</span> <span class="nf">gaussian_high_pass</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">sigma</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">2</span><span class="p">):</span>
@@ -642,15 +674,40 @@
 
 </pre></div>
 </div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># napari_spot_detector/__init__.py</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s2">&quot;0.0.1&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1">#napari.yaml</span>
+<span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">napari-spot-detector</span>
+<span class="nt">display_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Spot Detection</span>
+<span class="nt">contributions</span><span class="p">:</span>
+  <span class="nt">commands</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">napari-spot-detector.make_func_widget</span>
+      <span class="nt">python_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">napari_spot_detector._widget:detect_spots</span>
+      <span class="nt">title</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Make spot detection widget</span>
+  <span class="nt">widgets</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">command</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">napari-spot-detector.make_func_widget</span>
+      <span class="nt">autogenerate</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+      <span class="nt">display_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Spot Detection</span>
+</pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="explore-the-other-files-generated-by-cookiecutter">
 <h2>Explore the other files generated by cookiecutter<a class="headerlink" href="#explore-the-other-files-generated-by-cookiecutter" title="Permalink to this headline">¶</a></h2>
-<p>In order for napari to automatically find and make your plugin available to the user once it has been installed (i.e., “discoverable”), we must add a <code class="docutils literal notranslate"><span class="pre">napari.plugin</span></code> entry point to the <code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code> file. An entry point is a way that a python package can advertise that it has a component available (our plugin in this case). napari searches the python environment for packages that have a <code class="docutils literal notranslate"><span class="pre">napari.plugin</span></code> and then searches the specified module for functions that have been decorated with the <code class="docutils literal notranslate"><span class="pre">&#64;napari_hook_implementation</span></code> decorator.</p>
+<p>In order for napari to automatically find and make your plugin available to the user once it has been installed (i.e., “discoverable”), we must add a <code class="docutils literal notranslate"><span class="pre">napari.manifest</span></code> entry point to the <code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code> file. An entry point is a way that a python package can advertise that it has a component available (our plugin in this case). napari searches the python environment for packages that have a <code class="docutils literal notranslate"><span class="pre">napari.manifest</span></code> and then uses the path in the <code class="docutils literal notranslate"><span class="pre">entry_point</span></code> to find <code class="docutils literal notranslate"><span class="pre">napari.yaml</span></code>, where all your
+plugin functionality is declared.</p>
 <p>If we open the <code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code> file created by <code class="docutils literal notranslate"><span class="pre">cookiecutter</span></code>, we see that the entry point was already added by the cookiecutter template! If you called your plugin <code class="docutils literal notranslate"><span class="pre">napari-spot-detector</span></code> and your module <code class="docutils literal notranslate"><span class="pre">napari_spot_detector</span></code>, you will see the following:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">options</span><span class="o">.</span><span class="n">entry_points</span><span class="p">]</span> 
-<span class="n">napari</span><span class="o">.</span><span class="n">plugin</span> <span class="o">=</span> 
-    <span class="n">napari</span><span class="o">-</span><span class="n">spot</span><span class="o">-</span><span class="n">detector</span> <span class="o">=</span> <span class="n">napari_spot_detector</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">options</span><span class="o">.</span><span class="n">entry_points</span><span class="p">]</span>
+<span class="n">napari</span><span class="o">.</span><span class="n">manifest</span> <span class="o">=</span>
+    <span class="n">napari</span><span class="o">-</span><span class="n">spot</span><span class="o">-</span><span class="n">detector</span> <span class="o">=</span> <span class="n">napari_spot_detector</span><span class="p">:</span><span class="n">napari</span><span class="o">.</span><span class="n">yaml</span>
+</pre></div>
+</div>
+<p>Note that <code class="docutils literal notranslate"><span class="pre">src</span></code> doesn’t occur in the path to <code class="docutils literal notranslate"><span class="pre">napari.yaml</span></code>, but <code class="docutils literal notranslate"><span class="pre">napari.yaml</span></code> is definitely within the <code class="docutils literal notranslate"><span class="pre">src</span></code> folder! Python knows
+to look inside the <code class="docutils literal notranslate"><span class="pre">src</span></code> folder for your code because <code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code> declares an <code class="docutils literal notranslate"><span class="pre">options.packages.find</span></code> key.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">options</span><span class="o">.</span><span class="n">packages</span><span class="o">.</span><span class="n">find</span><span class="p">]</span>
+<span class="n">where</span> <span class="o">=</span> <span class="n">src</span>
 </pre></div>
 </div>
 </div>
@@ -660,7 +717,7 @@
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~/Documents/napari-spot-detector
 </pre></div>
 </div>
-<p>Then, we install the plugin with pip. pip is the package installer for python (see <a class="reference external" href="https://pip.pypa.io/en/stable/">the documentation</a> for more information). We will use the <code class="docutils literal notranslate"><span class="pre">-e</span></code> option to install in “editable” mode. This means that when we in make a change to our source code, it will be update the installed package the next time it is imported.</p>
+<p>Then, we install the plugin with pip. pip is the package installer for python (see <a class="reference external" href="https://pip.pypa.io/en/stable/">the documentation</a> for more information). We will use the <code class="docutils literal notranslate"><span class="pre">-e</span></code> option to install in “editable” mode. This means that when we make a change to our source code, it will update the installed package the next time it is imported, without us having to reinstall it.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install -e .
 </pre></div>
 </div>
@@ -675,9 +732,9 @@
 <h2>Bonus exercises<a class="headerlink" href="#bonus-exercises" title="Permalink to this headline">¶</a></h2>
 <p>In case you have finished all of the exercises with some time to spare, we have provided some ideas for ways that you can extend the plugin. Please feel free to give them a go and ask the teaching team if you have any questions.</p>
 <ul class="simple">
-<li><p>add sample data to your plugin. To do so, you would need to implement the <a class="reference external" href="https://napari.org/docs/dev/plugins/hook_specifications.html#napari.plugins.hook_specifications.napari_provide_sample_data">sample data hookspec</a></p></li>
+<li><p>add sample data to your plugin. To do so, you would need to implement the <a class="reference external" href="https://napari.org/plugins/guides.html#sample-data">sample data contribution</a></p></li>
 <li><p>add an option to your <code class="docutils literal notranslate"><span class="pre">detect_spots()</span></code> function plugin to return the filtered image in addition to the points layer.</p></li>
-<li><p>add some tests to the <code class="docutils literal notranslate"><span class="pre">_tests/test_function.py</span></code> file.</p></li>
+<li><p>add some tests to the <code class="docutils literal notranslate"><span class="pre">_tests/test_widget.py</span></code> file.</p></li>
 <li><p>upload your plugin to github</p></li>
 <li><p>start your own plugin</p></li>
 <li><p>consult with the teaching team about integrating napari into your workflow</p></li>
