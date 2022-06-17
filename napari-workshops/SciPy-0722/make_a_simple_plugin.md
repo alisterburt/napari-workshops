@@ -98,7 +98,7 @@ See below for explanations about some of the most notable files, but do not hesi
 
 You have now set up the directory for your new plugin! You can explore the directory and files with the file browser. In the next step, you will complete your plugin by adding your `detect_spots()` function to the `_widget.py` file.
 
-## Implementing a function hookspec
+## Implementing a function GUI
 In this step, we will implement our `detect_spots()` function as a plugin contribution. First, we will add our spot detection function to the plugin package. Then, we will add the type annotations to the function to so that napari can infer the correct GUI elements to add to our plugin.
 
 1. To edit your plugin source code, open an integrated development environment (VSCode is a good, free option) or text editor.
@@ -120,7 +120,8 @@ In this step, we will implement our `detect_spots()` function as a plugin contri
         import napari
 	```
 
-    - Next, you see two different ways to add widgets to napari. The first subclasses `QWidget` directly. This option provides
+    - Next, you see three different ways to add widgets to napari. 
+        1. The first subclasses `QWidget` directly. This option provides
 maximum flexibility, but means you have to take care of adding all the different GUI elements, laying them out, and hooking them
 up to the viewer.
 
@@ -144,7 +145,7 @@ up to the viewer.
             print("napari has", len(self.viewer.layers), "layers")    
     ```
 
-    - The second option is to write a `magic_factory` decorated function. You might recognize this from our `intensify` widget in the lecture. With minimal extra work you can configure options for your GUI elements, such as min and max values for integers, or choices for dropdown boxes. See the [magicgui configuration docs](https://napari.org/magicgui/usage/configuration.html) for details on what you can configure in the decorator.
+        2. The second option is to write a `magic_factory` decorated function. You might recognize this from our `intensify` widget in the lecture. With minimal extra work you can configure options for your GUI elements, such as min and max values for integers, or choices for dropdown boxes. See the [magicgui configuration docs](https://napari.org/magicgui/usage/configuration.html) for details on what you can configure in the decorator.
 
     ```python
     @magic_factory
@@ -152,7 +153,7 @@ up to the viewer.
         print(f"you have selected {img_layer}")
     ```
 
-	- Finally, you see the what looks like just a plain function. We will modify this to incorporate our `detect_spots` function.
+        3. Finally, you see the what looks like just a plain function. We don't need complex GUI interactions for our plugin, and we don't want to have to lay out the GUI ourselves, so we will modify this to incorporate our `detect_spots` function.
 
 	```python
     # Uses the `autogenerate: true` flag in the plugin manifest
