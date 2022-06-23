@@ -11,11 +11,15 @@ kernelspec:
   name: python3
 ---
 
-# notebook: segmenting nuclei with the cellpose napari plugin
+# notebook: segmenting nuclei with the stardist napari plugin
 
 ## Overview
 
-Plugins extend the functionality of napari and can be combined together to build workflows. Many plugins exist for common analysis tasks such as segmentation and filtering. In this activity, we will segment nuclei using the [cellpose napari plugin](https://github.com/MouseLand/cellpose-napari). Please visit the [napari hub](https://www.napari-hub.org/) for a listing of the available plugins.
+Plugins extend the functionality of napari and can be combined together to build workflows. Many plugins exist for common analysis tasks such as segmentation and filtering. In this activity, we will segment nuclei using the [stardist napari plugin](https://github.com/stardist/stardist-napari). Please visit the [napari hub](https://www.napari-hub.org/) for a listing of the available plugins.
+
+### Data source
+
+The data were downloaded from the [OpticalPooledScreens github repository](https://github.com/feldman4/OpticalPooledScreens).
 
 ## Data source
 
@@ -54,77 +58,72 @@ nbscreenshot(viewer)
 
 ## Segment nuclei
 
-To segment the nuclei, we will use the [cellpose napari plugin](https://github.com/MouseLand/cellpose-napari). Please perform the segmentation using the instructions below. For more information on cellpose, please see the [paper](https://www.nature.com/articles/s41592-020-01018-x) and [repository](https://github.com/MouseLand/cellpose).
+## Segment nuclei
 
-1. Start the cellpose plugin. From the menu bar, click Plugins->cellpose-napari: cellpose. You should see the plugin added to the right side of the viewer.
+To segment the nuclei, we will use the [stardist napari plugin](https://github.com/stardist/stardist-napari). Please perform the segmentation using the instructions below. For more information on stardist, please see the [papers](https://github.com/stardist/stardist#stardist---object-detection-with-star-convex-shapes) and [repository](https://github.com/stardist/stardist).
 
-<img src="https://raw.githubusercontent.com/alisterburt/napari-workshops/main/napari-workshops/notebooks/resources/cellpose_plugin.png" alt="cellpose plugin"  width="80%">
+1. Start the stardist plugin. From the menu bar, click Plugins->stardist-napari:StarDist. You should see the plugin added to the right side of the viewer.
+
+<img src="https://raw.githubusercontent.com/alisterburt/napari-workshops/main/napari-workshops/notebooks/resources/stardist_plugin.png" alt="stardist plugin"  width="80%">
 
 
 2. Select the "nuclei" image layer.
 
-<img src="https://raw.githubusercontent.com/alisterburt/napari-workshops/main/napari-workshops/notebooks/resources/cellpose_screenshots_image_selection.png" alt="select the image layer"  width="80%">
+<img src="https://raw.githubusercontent.com/alisterburt/napari-workshops/main/napari-workshops/notebooks/resources/stardist_screenshots_image_selection.png" alt="select the image layer"  width="80%">
 
 
-3. Set the model type to "nuclei"
+3. Set the model type to "2D"
 
-<img src="https://raw.githubusercontent.com/alisterburt/napari-workshops/main/napari-workshops/notebooks/resources/cellpose_screenshots_model_selection.png" alt="select the nuclei model"  width="80%">
+<img src="https://raw.githubusercontent.com/alisterburt/napari-workshops/main/napari-workshops/notebooks/resources/stardist_screenshots_model_type_selection.png" alt="select the 2D model"  width="80%">
 
+4. Select the "Versatile (fluorescent nuclei)" pretrained model
 
-4. We need to give cellpose an estimate of the size of the nuclei so it can properly scale the data. We can do so using a napari Shapes layer. With the Shapes layer, we will outline some nuclei and then cellpose will use those annotations to estimate the size of the nuclei.
-    1. Click the "add Shapes" layer button in the viewer. This will create and select a new layer called "Shapes".
-
-    <img src="https://raw.githubusercontent.com/alisterburt/napari-workshops/main/napari-workshops/notebooks/resources/cellpose_screenshots_add_shape.png" alt="add a shapes layer to measure the diameter"  width="80%">
-
-    2. Set the mode to "Ellipse" by clicking the button in the layer controls.
-    3. In the canvas, click and drag to add an ellipse that around a "representative" nucleus. For the purpose of this demo, this is enough, but for other data you may need to give more examples to make a better estimate of the cell diameter. If you need to pan/zoom while adding an ellipse, holding the spacebar will allow you to pan/zoom using your mouse (pan via click/drag, zoom by scrolling).
-    4. If you would like to edit or move an ellipse, you can switch to "Select shapes" mode in the viewer. Shapes can now be moved by clicking on them and then dragging. They can be resized by selecting them and then dragging the control points.
-    
-    <img src="https://raw.githubusercontent.com/alisterburt/napari-workshops/main/napari-workshops/notebooks/resources/cellpose_screenshots_select_shape.png" alt="use selection mode to edit shapes"  width="80%">
-
-    5. Once you are happy with your annotations, you can click the "compute diameter from shape layer" button and you will see the "diameter" value populated. For this demo, the value is typically around 10 pixels.
-    
-    <img src="https://raw.githubusercontent.com/alisterburt/napari-workshops/main/napari-workshops/notebooks/resources/cellpose_screenshots_diameter.png" alt="estimate the cell diameters"  width="80%">
+<img src="https://raw.githubusercontent.com/alisterburt/napari-workshops/main/napari-workshops/notebooks/resources/stardist_screenshots_model_selection.png" alt="select the Versatile model"  width="80%">
 
 
-5. For this demo, we recommend de-selecting "average 4 nets"(potentially less accurate, but faster segmentation) and otherwise using the default settings. If you would like to learn more about the cellpose settings, please see the [cellpose plugin documentation](https://cellpose-napari.readthedocs.io/en/latest/settings.html).
+5. Check the "Normalize Image" checkbox and set the low and high percentiles to 1.00 and 99.80, respectively. Normalizing the image is important to ensure the intensity distribution is as similar as possible to the distribution the stardist model was trained on.
 
-    <img src="https://raw.githubusercontent.com/alisterburt/napari-workshops/main/napari-workshops/notebooks/resources/cellpose_screenshots_settings.png" alt="select the segmentation settings"  width="80%">
+<img src="https://raw.githubusercontent.com/alisterburt/napari-workshops/main/napari-workshops/notebooks/resources/stardist_screenshots_preprocessing.png" alt="check the normalize image box"  width="80%">
 
-	
-6. Now you are ready to run the segmentation! Click the "run segmentation" button. Segmentation for this demo typically takes ~1.5 minutes. Note that there is not currently a progress bar, so please just be patient.
+6. You can leave the postprocessing options as their default values. Setting the "Probability / Score Threshold" to  higher values will likely reduce false positives, but also lead to fewer segmented objects. Increasing the "Overlap  Threshold" will allow objects to overlap more. Feel free to play around with the settings!
 
-    <img src="https://raw.githubusercontent.com/alisterburt/napari-workshops/main/napari-workshops/notebooks/resources/cellpose_screenshots_run.png" alt="start the segmentation"  width="80%">
+<img src="https://raw.githubusercontent.com/alisterburt/napari-workshops/main/napari-workshops/notebooks/resources/stardist_screenshots_postprocessing.png" alt="check the normalize image box"  width="80%">
 
+7. You can leave the "Advanced Options" as their default values
 
-7. When the segmentation is completed, you will see some new layers added to the layer list. Of particular interest is "nuclei_p_masks_000", which contains our segmentation mask added as a Labels layer.
+<img src="https://raw.githubusercontent.com/alisterburt/napari-workshops/main/napari-workshops/notebooks/resources/stardist_screenshots_postprocessing.png" alt="check the normalize image box"  width="80%">
 
-    <img src="https://raw.githubusercontent.com/alisterburt/napari-workshops/main/napari-workshops/notebooks/resources/cellpose_screenshots_results.png" alt="completed segmentation"  width="80%">
+8. You are now ready to perform the segmentation! Press the "Run" button to start the segmentation. This may take a few minutes as we are running the computation on CPU. However, this would be much faster when using a GPU!
 
-## Quantify nuclei shape
+<img src="https://raw.githubusercontent.com/alisterburt/napari-workshops/main/napari-workshops/notebooks/resources/stardist_screenshots_run.png" alt="check the normalize image box"  width="80%">
+
+9. When the segmentation is complete, you should see the results in the viewer. Two layers have been added to the viewer. "StarDist polygons" contains the outlines of the segmented cells as polygons as a Shapes layer and "StarDist labels" contains the dense instance segmentation as a Labels layer.
+
+<img src="https://raw.githubusercontent.com/alisterburt/napari-workshops/main/napari-workshops/notebooks/resources/stardist_screenshots_segmentation.png" alt="check the normalize image box"  width="80%">
+
+#  Bonus: Quantify nuclei shape
 
 In this next section, we will compute and display some basic properties of the segmented cells (e.g., area) using scikit-image and matplotlib.
 
-### Measure area and perimeter
+## Measure area and perimeter
+`stardist` outputs the segmentation masks as a label image in a `Labels` layer called `'StarDist labels'`. In napari, we can access the layer data from the layer object's `data` property. As we did in the previous exercise, we can access the the layer object from the layer list by its name (`viewer.layers['StarDist labels']`). From that layer object, we can access the data.
 
-`cellpose` outputs the segmentation masks as a label image in a `Labels` layer called `'nuclei_cp_masks_000'`. In napari, we can access the layer data from the layer object's `data` property. As we did in the previous exercise, we can access the the layer object from the layer list by its name (`viewer.layers['nuclei_cp_masks_000']`). From that layer object, we can access the data.
-
-We can use the scikit-image [`regionprops_table`](https://scikit-image.org/docs/dev/api/skimage.measure.html#skimage.measure.regionprops_table) function to measure the area and perimeter of the detected nuclei. `regionprops_table` outputs a dictionary where each key is a name of a measurement (e.g., `'area'`) and the value is the measurement value for each detected object (nucleus in the case).
+We can use the scikit-image [`regionprops_table`](https://scikit-image.org/docs/dev/api/skimage.measure.html#skimage.measure.regionprops_table) function to measure the area and perimeter of the detected nuclei. `regionprops_table` outputs a dictionary where each key is a name of a measurement (e.g., `'area'`) and the value is the measurement value for each detected object (nucleus in the case).`
 
 ```{code-cell} ipython3
 :tags: ["remove-cell"]
 
 from skimage.io import imread
 
-label_im = imread('./data/nuclei_cp_masks_000.png')
-viewer.add_labels(label_im, name='nuclei_cp_masks_000')
+label_im = imread('./data/stardist_masks.tif')
+viewer.add_labels(label_im, name='StarDist labels')
 ```
 
 ```{code-cell} ipython3
 from skimage.measure import regionprops_table
 
 # measure the area and nucleus for each nucleus
-label_layer = viewer.layers['nuclei_cp_masks_000']
+label_layer = viewer.layers['StarDist labels']
 rp_table = regionprops_table(
     label_layer.data,
     properties=('area', 'perimeter')
