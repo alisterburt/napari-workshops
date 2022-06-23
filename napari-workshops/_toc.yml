@@ -24,11 +24,11 @@ chapters:
   - file: notebooks/segmenting_and_measuring_nuclei.md
   - file: notebooks/spot_detection.md
   - file: SwissBIAS-1121/make_a_simple_plugin
-- file: Scipy-0722/intro
+- file: SciPy-0722/intro
   sections:
-  - file: Scipy-0722/scipy_installation.md
-  - file: Scipy-0722/notebook_setup.md
+  - file: SciPy-0722/scipy_installation.md
+  - file: SciPy-0722/notebook_setup.md
   - file: notebooks/viewer_intro_scipy.md
   - file: notebooks/segmenting_and_measuring_nuclei_stardist.md
   - file: notebooks/spot_detection_scipy.md
-  - file: Scipy-0722/make_a_simple_plugin.md
+  - file: SciPy-0722/make_a_simple_plugin.md
