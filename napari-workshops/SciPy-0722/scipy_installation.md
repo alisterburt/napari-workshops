@@ -79,6 +79,16 @@ In this tutorial, we will install python via miniforge, a distribution of anacon
 
 4. Install the dependencies with the commands below
 
+	**If you're on an M1 Mac**:
+
+	```bash
+	conda install -c conda-forge notebook napari
+	pip install cookiecutter magicgui
+	pip install stardist-napari
+	```
+
+	Other systems: 
+
 	```bash
 	conda install -c conda-forge notebook
 	pip install cookiecutter magicgui "napari[all]"
@@ -102,3 +112,33 @@ In this tutorial, we will install python via miniforge, a distribution of anacon
 	```bash
 	napari
 	```
+
+```{admonition} Errors launching?
+Sometimes, `napari` installation can fail on an M1 Mac due to mismatching dependencies on `pip`.
+
+If you get an error at step 4 above, or can't launch `napari` after installation, 
+you should try to delete your `napari-tutorial` environment, and follow the installation instructions here.
+
+1. Delete your `napari-tutorial` environment
+
+````bash
+conda activate base
+conda env remove -n napari-tutorial
+````
+
+2. Create your environment and install `napari` from `conda-forge`
+
+````bash
+conda create -y -n napari-tutorial python=3.9 napari
+````
+
+Then after creation:
+
+````bash
+conda activate napari-tutorial
+conda install -c conda-forge notebook
+pip install cookiecutter magicgui
+pip install stardist-napari
+````
+
+```

@@ -50,7 +50,7 @@ jupyter notebook
 Jupyter Notebook will open in a browser window and you will see the following notebooks:
 
 - `part_0_viewer_intro.ipynb`: in this activity, you will gain familiarity with loading and viewing images in napari.
-- `part_1_segmenting_and_measuring_nuclei.ipynb`: in this notebook, you will use cellpose to segment nuclei and scikit-image to measure them.
+- `part_1_segmenting_and_measuring_nuclei.ipynb`: in this notebook, you will use stardist to segment nuclei and scikit-image to measure them.
 - `part_2_spot_detection_tutorial_beginner.ipynb`: this is the spot detection notebook for people new to image processing with python
 - `part_2_spot_detection_tutorial_advanced.ipynb`: this is the spot detection notebook for people with experience performing image processing with python
 - `part_2_spot_detection_tutorial_solution.ipynb`: this is the solution to the spot detection activity.
