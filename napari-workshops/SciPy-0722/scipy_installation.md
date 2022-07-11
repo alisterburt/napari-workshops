@@ -91,6 +91,36 @@ In this tutorial, we will install python via miniforge, a distribution of anacon
 	conda install -c conda-forge python.app
 	```
 
+```{admonition} Got an M1 Mac?
+Sometimes, `napari` installation can fail on an M1 Mac due to mismatching dependencies on `pip`.
+
+If you get an error at step 4 above, or can't launch `napari` after installation, 
+you should try to delete your `napari-tutorial` environment, and follow the installation instructions here.
+
+1. Delete your `napari-tutorial` environment
+
+````bash
+conda activate base
+conda env remove -n napari-tutorial
+````
+
+2. Create your environment and install `napari` from `conda-forge`
+
+````bash
+conda create -y -n napari-tutorial python=3.9 napari
+````
+
+Then after creation:
+
+````bash
+conda activate napari-tutorial
+conda install -c conda-forge notebook
+pip install cookiecutter magicgui
+pip install stardist-napari
+````
+
+```
+
 6. Test that your notebook installation is working. We will be using notebook for interactive analysis. Enter the command below and it should launch jupyter notebook book in a web browser. Once you've confirmed it launches, close the web browser and press ctrl+c in the terminal window to stop the notebook server.
 
 	```bash
