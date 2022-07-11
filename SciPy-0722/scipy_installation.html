@@ -547,6 +547,13 @@ title="Print to PDF"
 </div>
 </li>
 <li><p>Install the dependencies with the commands below</p>
+<p><strong>If you’re on an M1 Mac</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda install -c conda-forge notebook napari
+pip install cookiecutter magicgui
+pip install stardist-napari
+</pre></div>
+</div>
+<p>Other systems:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda install -c conda-forge notebook
 pip install cookiecutter magicgui <span class="s2">&quot;napari[all]&quot;</span>
 pip install stardist-napari
@@ -569,6 +576,35 @@ pip install stardist-napari
 </div>
 </li>
 </ol>
+<div class="admonition-errors-launching admonition">
+<p class="admonition-title">Errors launching?</p>
+<p>Sometimes, <code class="docutils literal notranslate"><span class="pre">napari</span></code> installation can fail on an M1 Mac due to mismatching dependencies on <code class="docutils literal notranslate"><span class="pre">pip</span></code>.</p>
+<p>If you get an error at step 4 above, or can’t launch <code class="docutils literal notranslate"><span class="pre">napari</span></code> after installation,
+you should try to delete your <code class="docutils literal notranslate"><span class="pre">napari-tutorial</span></code> environment, and follow the installation instructions here.</p>
+<ol class="simple">
+<li><p>Delete your <code class="docutils literal notranslate"><span class="pre">napari-tutorial</span></code> environment</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda activate base
+conda env remove -n napari-tutorial
+</pre></div>
+</div>
+</div>
+<ol class="simple">
+<li><p>Create your environment and install <code class="docutils literal notranslate"><span class="pre">napari</span></code> from <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code></p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda create -y -n napari-tutorial <span class="nv">python</span><span class="o">=</span><span class="m">3</span>.9 napari
+</pre></div>
+</div>
+<p>Then after creation:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda activate napari-tutorial
+conda install -c conda-forge notebook
+pip install cookiecutter magicgui
+pip install stardist-napari
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
 </section>
 </section>
 

@@ -166,4 +166,4 @@ plt.show()
 
 ## Conclusions
 
-In this notebook, we have used the cellpose-napari plugin to perform nucleus segmentation. We then used the results of the segmentation to inspect the relationship between nucleus area and circularity. This demonstration highlights how one can combine napari plugins and python libraries to make measurements on microscopy data.
+In this notebook, we have used the stardist-napari plugin to perform nucleus segmentation. We then used the results of the segmentation to inspect the relationship between nucleus area and circularity. This demonstration highlights how one can combine napari plugins and python libraries to make measurements on microscopy data.
