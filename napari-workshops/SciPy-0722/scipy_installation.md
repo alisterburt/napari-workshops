@@ -79,6 +79,16 @@ In this tutorial, we will install python via miniforge, a distribution of anacon
 
 4. Install the dependencies with the commands below
 
+	**If you're on an M1 Mac**:
+
+	```bash
+	conda install -c conda-forge notebook napari
+	pip install cookiecutter magicgui
+	pip install stardist-napari
+	```
+
+	Other systems: 
+
 	```bash
 	conda install -c conda-forge notebook
 	pip install cookiecutter magicgui "napari[all]"
@@ -91,7 +101,19 @@ In this tutorial, we will install python via miniforge, a distribution of anacon
 	conda install -c conda-forge python.app
 	```
 
-```{admonition} Got an M1 Mac?
+6. Test that your notebook installation is working. We will be using notebook for interactive analysis. Enter the command below and it should launch jupyter notebook book in a web browser. Once you've confirmed it launches, close the web browser and press ctrl+c in the terminal window to stop the notebook server.
+
+	```bash
+	jupyter notebook
+	```
+
+7. Test your napari installation. Enter the command below and an empty napari viewer should open. You can close the window after it opens. Please note that it takes a bit of extra time to launch napari the first time.
+	
+	```bash
+	napari
+	```
+
+```{admonition} Errors launching?
 Sometimes, `napari` installation can fail on an M1 Mac due to mismatching dependencies on `pip`.
 
 If you get an error at step 4 above, or can't launch `napari` after installation, 
@@ -120,15 +142,3 @@ pip install stardist-napari
 ````
 
 ```
-
-6. Test that your notebook installation is working. We will be using notebook for interactive analysis. Enter the command below and it should launch jupyter notebook book in a web browser. Once you've confirmed it launches, close the web browser and press ctrl+c in the terminal window to stop the notebook server.
-
-	```bash
-	jupyter notebook
-	```
-
-7. Test your napari installation. Enter the command below and an empty napari viewer should open. You can close the window after it opens. Please note that it takes a bit of extra time to launch napari the first time.
-	
-	```bash
-	napari
-	```
