@@ -41,15 +41,15 @@ This notebook will introduce `napari` a fast, interactive, multi-dimensional ima
 :align: center
 ```
 
-`napari` supports seven different layer types, **Image**, **Labels**, **Points**, **Vectors**, **Shapes**, **Surface** and **Tracks**. Each layer corresponds to a different data type and has it's own set of visualizations and interactive controls. We provide an [associated tutorial](https://napari.org/tutorials/index.html) for each layer type to help you get started! 
+`napari` supports seven different layer types, **Image**, **Labels**, **Points**, **Vectors**, **Shapes**, **Surface** and **Tracks**. Each layer corresponds to a different data type and has it's own set of visualizations and interactive controls. We provide an [associated tutorial](https://napari.org/howtos/layers/index.html) for each layer type to help you get started! 
 
 You can add multiple layers of different types into the viewer and work with them, adjusting their properties and performing analysis.
 
 `napari` also supports bidirectional communication between the viewer and the Python kernel, which is especially useful when launching from jupyter notebooks or when using our built-in console. Using the console allows you to interactively load and save data from the viewer and control all the features of the viewer programmatically.
 
-You can (and are encouraged to!) extend `napari` using custom [key bindings](https://napari.org/guides/stable/connecting_events.html#listening-for-keypress-events), [mouse functions](https://napari.org/guides/stable/connecting_events.html#listening-for-mouse-events), and our new [**plugin-interface**](https://napari.org/plugins/stable/for_plugin_developers.html).
+You can (and are encouraged to!) extend `napari` using custom [key bindings](https://napari.org/howtos/connecting_events.html#listening-for-keypress-events), [mouse functions](https://napari.org/howtos/connecting_events.html#listening-for-mouse-events), and our new [**plugin-interface**](https://napari.org/plugins/index.html).
 
-Learn more about napari at [napari.org](https://napari.org/), including our [tutorials](https://napari.org/tutorials/), our [documentation](https://napari.org/docs/) and our [mission and values](https://napari.org/docs/developers/MISSION_AND_VALUES.html).
+Learn more about napari at [napari.org](https://napari.org/), including our [tutorials](https://napari.org/usage.html), our [API documentation](https://napari.org/api/index.html) and our [mission and values](https://napari.org/community/mission_and_values.html).
 
 ## Visualizing data with napari
 
