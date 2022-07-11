@@ -639,15 +639,12 @@ You can also use <a class="reference external" href="https://docs.google.com/pre
     <span class="kn">import</span> <span class="nn">napari</span>
 </pre></div>
 </div>
-<ul class="simple">
+<ul>
 <li><p>Next, you see three different ways to add widgets to napari.</p>
-<ol class="simple">
+<ol>
 <li><p>The first subclasses <code class="docutils literal notranslate"><span class="pre">QWidget</span></code> directly. This option provides
 maximum flexibility, but means you have to take care of adding all the different GUI elements, laying them out, and hooking them
-up to the viewer.</p></li>
-</ol>
-</li>
-</ul>
+up to the viewer.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ExampleQWidget</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
     <span class="c1"># your QWidget.__init__ can optionally request the napari viewer instance</span>
     <span class="c1"># in one of two ways:</span>
@@ -667,17 +664,15 @@ up to the viewer.</p></li>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;napari has&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">),</span> <span class="s2">&quot;layers&quot;</span><span class="p">)</span>    
 </pre></div>
 </div>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span> 2. The second option is to write a `magic_factory` decorated function. You might recognize this from our `intensify` widget in the lecture. With minimal extra work you can configure options for your GUI elements, such as min and max values for integers, or choices for dropdown boxes. See the [magicgui configuration docs](https://napari.org/magicgui/usage/configuration.html) for details on what you can configure in the decorator.
-</pre></div>
-</div>
+</li>
+<li><p>The second option is to write a <code class="docutils literal notranslate"><span class="pre">magic_factory</span></code> decorated function. You might recognize this from our <code class="docutils literal notranslate"><span class="pre">intensify</span></code> widget in the lecture. With minimal extra work you can configure options for your GUI elements, such as min and max values for integers, or choices for dropdown boxes. See the <a class="reference external" href="https://napari.org/magicgui/usage/configuration.html">magicgui configuration docs</a> for details on what you can configure in the decorator.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@magic_factory</span>
 <span class="k">def</span> <span class="nf">example_magic_widget</span><span class="p">(</span><span class="n">img_layer</span><span class="p">:</span> <span class="s2">&quot;napari.layers.Image&quot;</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;you have selected </span><span class="si">{</span><span class="n">img_layer</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span> 3. Finally, you see the what looks like just a plain function. We don&#39;t need complex GUI interactions for our plugin, and we don&#39;t want to have to lay out the GUI ourselves, so we will modify this to incorporate our `detect_spots` function.
-</pre></div>
-</div>
+</li>
+<li><p>Finally, you see the what looks like just a plain function. We don’t need complex GUI interactions for our plugin, and we don’t want to have to lay out the GUI ourselves, so we will modify this to incorporate our <code class="docutils literal notranslate"><span class="pre">detect_spots</span></code> function.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Uses the `autogenerate: true` flag in the plugin manifest</span>
 <span class="c1"># to indicate it should be wrapped as a magicgui to autogenerate</span>
 <span class="c1"># a widget.</span>
@@ -685,7 +680,9 @@ up to the viewer.</p></li>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;you have selected </span><span class="si">{</span><span class="n">img_layer</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<ul class="simple">
+</li>
+</ol>
+</li>
 <li><p>Find the <code class="docutils literal notranslate"><span class="pre">Command</span></code> ID in <code class="docutils literal notranslate"><span class="pre">napari.yaml</span></code> that points to <code class="docutils literal notranslate"><span class="pre">example_function_widget</span></code>, and then find that <code class="docutils literal notranslate"><span class="pre">Command</span></code> ID in the
 <code class="docutils literal notranslate"><span class="pre">Widgets</span></code> contribution section. Note that unlike the other <code class="docutils literal notranslate"><span class="pre">widget</span></code> contributions, this one includes <code class="docutils literal notranslate"><span class="pre">autogenerate:</span> <span class="pre">true</span></code>.</p></li>
 </ul>

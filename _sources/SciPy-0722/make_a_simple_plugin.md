@@ -125,43 +125,47 @@ In this step, we will implement our `detect_spots()` function as a plugin contri
 maximum flexibility, but means you have to take care of adding all the different GUI elements, laying them out, and hooking them
 up to the viewer.
 
-    ```python
-    class ExampleQWidget(QWidget):
-        # your QWidget.__init__ can optionally request the napari viewer instance
-        # in one of two ways:
-        # 1. use a parameter called `napari_viewer`, as done here
-        # 2. use a type annotation of 'napari.viewer.Viewer' for any parameter
-        def __init__(self, napari_viewer):
-            super().__init__()
-            self.viewer = napari_viewer
+            ```python
+            class ExampleQWidget(QWidget):
+                # your QWidget.__init__ can optionally request the napari viewer instance
+                # in one of two ways:
+                # 1. use a parameter called `napari_viewer`, as done here
+                # 2. use a type annotation of 'napari.viewer.Viewer' for any parameter
+                def __init__(self, napari_viewer):
+                    super().__init__()
+                    self.viewer = napari_viewer
 
-            btn = QPushButton("Click me!")
-            btn.clicked.connect(self._on_click)
+                    btn = QPushButton("Click me!")
+                    btn.clicked.connect(self._on_click)
 
-            self.setLayout(QHBoxLayout())
-            self.layout().addWidget(btn)
+                    self.setLayout(QHBoxLayout())
+                    self.layout().addWidget(btn)
 
-        def _on_click(self):
-            print("napari has", len(self.viewer.layers), "layers")    
-    ```
+                def _on_click(self):
+                    print("napari has", len(self.viewer.layers), "layers")    
+            ```
+
 
         2. The second option is to write a `magic_factory` decorated function. You might recognize this from our `intensify` widget in the lecture. With minimal extra work you can configure options for your GUI elements, such as min and max values for integers, or choices for dropdown boxes. See the [magicgui configuration docs](https://napari.org/magicgui/usage/configuration.html) for details on what you can configure in the decorator.
 
-    ```python
-    @magic_factory
-    def example_magic_widget(img_layer: "napari.layers.Image"):
-        print(f"you have selected {img_layer}")
-    ```
+
+            ```python
+            @magic_factory
+            def example_magic_widget(img_layer: "napari.layers.Image"):
+                print(f"you have selected {img_layer}")
+            ```
+
 
         3. Finally, you see the what looks like just a plain function. We don't need complex GUI interactions for our plugin, and we don't want to have to lay out the GUI ourselves, so we will modify this to incorporate our `detect_spots` function.
 
-	```python
-    # Uses the `autogenerate: true` flag in the plugin manifest
-    # to indicate it should be wrapped as a magicgui to autogenerate
-    # a widget.
-    def example_function_widget(img_layer: "napari.layers.Image"):
-        print(f"you have selected {img_layer}")
-	```
+
+            ```python
+            # Uses the `autogenerate: true` flag in the plugin manifest
+            # to indicate it should be wrapped as a magicgui to autogenerate
+            # a widget.
+            def example_function_widget(img_layer: "napari.layers.Image"):
+                print(f"you have selected {img_layer}")
+            ```
 
     - Find the `Command` ID in `napari.yaml` that points to `example_function_widget`, and then find that `Command` ID in the
 `Widgets` contribution section. Note that unlike the other `widget` contributions, this one includes `autogenerate: true`.
