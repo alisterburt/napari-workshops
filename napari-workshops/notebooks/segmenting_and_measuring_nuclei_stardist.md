@@ -58,11 +58,9 @@ nbscreenshot(viewer)
 
 ## Segment nuclei
 
-## Segment nuclei
-
 To segment the nuclei, we will use the [stardist napari plugin](https://github.com/stardist/stardist-napari). Please perform the segmentation using the instructions below. For more information on stardist, please see the [papers](https://github.com/stardist/stardist#stardist---object-detection-with-star-convex-shapes) and [repository](https://github.com/stardist/stardist).
 
-1. Start the stardist plugin. From the menu bar, click Plugins->stardist-napari:StarDist. You should see the plugin added to the right side of the viewer.
+1. Start the stardist plugin. From the menu bar, click Plugins->stardist-napari:StarDist. You should see the plugin added to the right side of the viewer. Note it may take a while for the plugin to first open, as it downloads some pre-trained models for you.
 
 <img src="https://raw.githubusercontent.com/alisterburt/napari-workshops/main/napari-workshops/notebooks/resources/stardist_plugin.png" alt="stardist plugin"  width="80%">
 
